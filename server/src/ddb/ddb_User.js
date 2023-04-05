@@ -4,10 +4,6 @@ import { putItem, getItem, deleteItem, query } from "./ddbActions.js";
 const saltRounds = 10;
 
 class ddb_User {
-  set password(newPassword) {
-    this.cryptedPassword = Bcrypt.hashSync(newPassword, saltRounds);
-  }
-
   static async authenticate(email, enteredPassword) {
     const user = await ddb_User.getUser(email);
 
@@ -22,7 +18,7 @@ class ddb_User {
         cryptedPassword: Bcrypt.hashSync(password, saltRounds)
       }
     };
-    let output = await putItem(params);
+    await putItem(params);
 
     return params.Item;
   }

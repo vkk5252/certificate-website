@@ -23,7 +23,6 @@ const ddbDocClient = DynamoDBDocumentClient.from(ddbClient, {
 const putItem = async (params) => {
   try {
     const data = await ddbDocClient.send(new PutCommand(params));
-    console.log("Success - item added or updated");
     return { message: "success" };
   } catch (err) {
     console.log("Error", err.stack);
@@ -34,7 +33,6 @@ const putItem = async (params) => {
 const getItem = async (params) => {
   try {
     const data = await ddbDocClient.send(new GetCommand(params));
-    console.log("Success :");
     return data.Item;
   } catch (err) {
     console.log("Error", err);
@@ -45,7 +43,6 @@ const getItem = async (params) => {
 const deleteItem = async (params) => {
   try {
     await ddbDocClient.send(new DeleteCommand(params));
-    console.log("Success - item deleted");
     return { message: "success - deleted" }
   } catch (err) {
     console.log("Error", err);
@@ -58,7 +55,7 @@ const query = async (params) => {
     const data = await ddbClient.send(new QueryCommand(params));
     return { message: "success", data: data.Items };
   } catch (err) {
-    console.error(err);
+    console.error("Error", err);
     return { message: "error" };
   }
 };

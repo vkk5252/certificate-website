@@ -1,6 +1,5 @@
 import express from "express";
 import passport from "passport";
-import ddb_User from "../../../ddb/ddb_User.js";
 
 const sessionRouter = new express.Router();
 
@@ -12,7 +11,6 @@ sessionRouter.post("/", (req, res, next) => {
     }
 
     if (user) {
-      console.log(user);
       return req.login(user, () => {
         return res.status(201).json(user);
       });
@@ -23,9 +21,6 @@ sessionRouter.post("/", (req, res, next) => {
 });
 
 sessionRouter.get("/current", async (req, res) => {
-  console.log(req.session);
-  console.log(req.user)
-  // console.log(req._passport.session);
   if (req.user) {
     res.status(200).json(req.user);
   } else {
