@@ -25,7 +25,7 @@ const putItem = async (params) => {
     const data = await ddbDocClient.send(new PutCommand(params));
     return { message: "success" };
   } catch (err) {
-    console.log("Error", err.stack);
+    // console.log("Error", err.stack);
     return { message: "error" };
   }
 };
@@ -35,7 +35,7 @@ const getItem = async (params) => {
     const data = await ddbDocClient.send(new GetCommand(params));
     return data.Item;
   } catch (err) {
-    console.log("Error", err);
+    // console.log("Error", err);
     return { message: "error" };
   }
 };
@@ -45,7 +45,7 @@ const deleteItem = async (params) => {
     await ddbDocClient.send(new DeleteCommand(params));
     return { message: "success - deleted" }
   } catch (err) {
-    console.log("Error", err);
+    // console.log("Error", err);
     return { message: "error" }
   }
 };
@@ -55,7 +55,7 @@ const query = async (params) => {
     const data = await ddbClient.send(new QueryCommand(params));
     return { message: "success", data: data.Items };
   } catch (err) {
-    console.error("Error", err);
+    // console.error("Error", err);
     return { message: "error" };
   }
 };

@@ -15,7 +15,7 @@ const SignInForm = () => {
     if (!email.match(emailRegexp)) {
       newErrors = {
         ...newErrors,
-        email: "is invalid",
+        email: email.length ? "not an email" : "is required",
       };
     }
 
@@ -27,30 +27,31 @@ const SignInForm = () => {
     }
 
     setErrors(newErrors);
+    return Object.keys(newErrors).length ? false : true;
   };
 
   const onSubmit = async (event) => {
     event.preventDefault()
-    validateInput(userPayload)
-    try {
-      if (Object.keys(errors).length === 0) {
+    if (validateInput(userPayload)) {
+      try {
         const response = await fetch("/api/v1/user-sessions", {
-          method: "post",
+          method: "POST",
           body: JSON.stringify(userPayload),
           headers: new Headers({
             "Content-Type": "application/json",
           })
         })
-        if(!response.ok) {
+        const userData = await response.json()
+        if (!response.ok) {
           const errorMessage = `${response.status} (${response.statusText})`
           const error = new Error(errorMessage)
-          throw(error)
+          setErrors(userData);
+          throw (error)
         }
-        const userData = await response.json()
         setShouldRedirect(true)
+      } catch (err) {
+        console.error(`Error in fetch: ${err.message}`)
       }
-    } catch(err) {
-      console.error(`Error in fetch: ${err.message}`)
     }
   }
 

@@ -6,8 +6,10 @@ const saltRounds = 10;
 class ddb_User {
   static async authenticate(email, enteredPassword) {
     const user = await ddb_User.getUser(email);
+    const registeredEmail = !!user;
+    const validCredentials = registeredEmail ? Bcrypt.compareSync(enteredPassword, user.cryptedPassword) : false;
 
-    return [Bcrypt.compareSync(enteredPassword, user.cryptedPassword), user];
+    return { registeredEmail, validCredentials, user };
   }
 
   static async createUser(email, password) {
@@ -23,7 +25,7 @@ class ddb_User {
 
     return result.message === "error" ? false : params.Item;
   }
-  
+
   static async getUser(email) {
     const params = {
       TableName: "Certificate_Users",
@@ -31,8 +33,9 @@ class ddb_User {
         email: email
       }
     }
+    const user = await getItem(params);
 
-    return await getItem(params);
+    return user || false;
   }
 }
 

@@ -18,7 +18,7 @@ const RegistrationForm = () => {
     if (!email.match(emailRegexp)) {
       newErrors = {
         ...newErrors,
-        email: "not an email",
+        email: email.length ? "not an email" : "is required",
       };
     }
 
