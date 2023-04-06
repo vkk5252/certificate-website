@@ -1,20 +1,16 @@
 import local from "passport-local";
 
-import User from "../models/User.js";
+import ddb_User from "../ddb/ddb_User.js";
 
-const authHandler = (email, password, done) => {
-  User.query()
-    .findOne({ email })
-    .then((user) => {
-      if (user) {
-        if (user.authenticate(password)) {
-          return done(null, user);
-        }
-
-        return done(null, false, { message: "Invalid credentials" });
-      }
-      return done(null, false, { message: "Invalid credentials" });
-    });
+const authHandler = async (email, password, done) => {
+  const { registeredEmail, validCredentials, user } = await ddb_User.authenticate(email, password);
+  if (!registeredEmail) {
+    return done({email: "email not registered"}, false);
+  }
+  if (!validCredentials) {
+    return done({password: "invalid credentials"}, false);
+  }
+  return done({}, user);
 };
 
 export default new local.Strategy({ usernameField: "email" }, authHandler);

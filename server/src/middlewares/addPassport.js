@@ -9,7 +9,7 @@ const addPassport = (app) => {
 
 passport.use(strategy);
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.email);
 });
 
 passport.deserializeUser(deserializeUser);
