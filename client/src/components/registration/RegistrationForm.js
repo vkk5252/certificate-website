@@ -8,14 +8,10 @@ const RegistrationForm = () => {
     password: "",
     passwordConfirmation: "",
   });
-
   const [errors, setErrors] = useState({});
-  console.log("errors:", errors);
-
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
   const validateInput = (payload) => {
-    setErrors({});
     const { email, password, passwordConfirmation } = payload;
     const emailRegexp = config.validation.email.regexp;
     let newErrors = {};
@@ -59,7 +55,7 @@ const RegistrationForm = () => {
             method: "POST",
             body: JSON.stringify(userPayload),
             headers: new Headers({
-              "Content-Type": "Application/JSON",
+              "Content-Type": "application/json",
             }),
           });
           const userData = await response.json();
