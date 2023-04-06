@@ -12,15 +12,16 @@ class ddb_User {
 
   static async createUser(email, password) {
     const params = {
-      TableName: "Certificate_Users",
+      ConditionExpression: "attribute_not_exists(email)",
       Item: {
         email: email,
         cryptedPassword: Bcrypt.hashSync(password, saltRounds)
-      }
+      },
+      TableName: "Certificate_Users"
     };
-    await putItem(params);
+    const result = await putItem(params);
 
-    return params.Item;
+    return result.message === "error" ? false : params.Item;
   }
   
   static async getUser(email) {

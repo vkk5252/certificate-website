@@ -10,6 +10,7 @@ const RegistrationForm = () => {
   });
 
   const [errors, setErrors] = useState({});
+  console.log("errors:", errors);
 
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
@@ -21,7 +22,7 @@ const RegistrationForm = () => {
     if (!email.match(emailRegexp)) {
       newErrors = {
         ...newErrors,
-        email: "is invalid",
+        email: "not an email",
       };
     }
 
@@ -47,30 +48,31 @@ const RegistrationForm = () => {
     }
 
     setErrors(newErrors);
+    return Object.keys(newErrors).length ? false : true;
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    validateInput(userPayload);
-    try {
-      if (Object.keys(errors).length === 0) {
-        const response = await fetch("/api/v1/users", {
-          method: "post",
-          body: JSON.stringify(userPayload),
-          headers: new Headers({
-            "Content-Type": "application/json",
-          }),
-        });
-        if (!response.ok) {
-          const errorMessage = `${response.status} (${response.statusText})`;
-          const error = new Error(errorMessage);
-          throw error;
-        }
-        const userData = await response.json();
-        setShouldRedirect(true);
+    if (validateInput(userPayload)) {
+      try {
+          const response = await fetch("/api/v1/users", {
+            method: "POST",
+            body: JSON.stringify(userPayload),
+            headers: new Headers({
+              "Content-Type": "Application/JSON",
+            }),
+          });
+          const userData = await response.json();
+          if (!response.ok) {
+            const errorMessage = `${response.status} (${response.statusText})`;
+            const error = new Error(errorMessage);
+            setErrors(userData.errors);
+            throw error;
+          }
+          setShouldRedirect(true);
+      } catch (err) {
+        console.error(`Error in fetch: ${err.message}`);
       }
-    } catch (err) {
-      console.error(`Error in fetch: ${err.message}`);
     }
   };
 
