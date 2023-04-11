@@ -72,7 +72,8 @@ const SignInForm = () => {
           "Content-Type": "application/json",
         })
       })
-      const body = await response.json()
+      const body = await response.json();
+      setErrors({ ...errors, password: body.message});
       if (!response.ok) {
         const errorMessage = `${response.status} (${response.statusText})`
         const error = new Error(errorMessage)
