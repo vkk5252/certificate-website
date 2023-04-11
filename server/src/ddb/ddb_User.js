@@ -34,7 +34,7 @@ class ddb_User {
       uuid = await ddb_User.createEmailVerification(email);
       sendVerificationEmail(email, {
         name: email.split("@")[0],
-        verificationLink: `http://localhost:3000/api/v1/verify-email/?email=${email}&uuid=${uuid}`
+        verificationLink: `http://localhost:3000/verify?email=${email}&uuid=${uuid}`
       });
     }
 
