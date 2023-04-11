@@ -19,13 +19,13 @@ class ddb_User {
 
   static async createUser(email, password) {
     const params = {
+      TableName: config.database.users,
       ConditionExpression: "attribute_not_exists(email)",
       Item: {
         email: email,
         cryptedPassword: Bcrypt.hashSync(password, saltRounds),
         verifiedEmail: false
-      },
-      TableName: "Certificate_Users"
+      }
     };
     const result = await putItem(params);
     let uuid;
@@ -36,7 +36,6 @@ class ddb_User {
         name: email.split("@")[0],
         verificationLink: `http://localhost:3000/api/v1/verify-email/?email=${email}&uuid=${uuid}`
       });
-
     }
 
     return result.message === "error" ? false : params.Item;
@@ -44,7 +43,7 @@ class ddb_User {
 
   static async getUser(email) {
     const params = {
-      TableName: "Certificate_Users",
+      TableName: config.database.users,
       Key: {
         email: email
       }
@@ -56,7 +55,7 @@ class ddb_User {
 
   static async getVerification(email) {
     const params = {
-      TableName: "certificate-website-verification",
+      TableName: config.database.verification,
       Key: {
         email: email
       }
@@ -70,12 +69,12 @@ class ddb_User {
     const date = new Date();
     const uuid = uuidv4();
     const params = {
+      TableName: config.database.verification,
       Item: {
         email: email,
         uuid: uuid,
         created: date.toUTCString()
-      },
-      TableName: "certificate-website-verification"
+      }
     };
     await putItem(params);
 
@@ -104,10 +103,10 @@ class ddb_User {
     }
 
     const params = {
+      TableName: config.database.users,
       Key: {
         email: email,
       },
-      TableName: "Certificate_Users",
       UpdateExpression: "set verifiedEmail = :verified",
       ExpressionAttributeValues: {
         ":verified": true,

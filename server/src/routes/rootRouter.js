@@ -9,6 +9,4 @@ rootRouter.use("/api/v1/user-sessions", userSessionsRouter);
 rootRouter.use("/api/v1/users", usersRouter);
 rootRouter.use("/api/v1/verify-email", verificationRouter);
 
-//place your server-side routes here
-
 export default rootRouter;
