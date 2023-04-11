@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import config from "../config.js";
 
 import { putItem, getItem, deleteItem, query, updateItem } from "../aws/ddbActions.js";
-import sendVerificationEmail from "../aws/sendVerificationEmail.js";
+import { sendVerificationEmail } from "../aws/ses/emailTypes.js";
 import msToTimeString from "../utils/msToTimeString.js";
 
 const saltRounds = 10;

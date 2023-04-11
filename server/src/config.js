@@ -11,5 +11,9 @@ export default {
   database: {
     users: "certificate-website-users",
     verification: "certificate-website-verification"
+  },
+  emailTemplatePaths: {
+    verification: "./src/aws/ses/templates/verificationEmailTemplate.hbs",
+    passwordReset: "./src/aws/ses/templates/passwordResetEmailTemplate.hbs"
   }
 };

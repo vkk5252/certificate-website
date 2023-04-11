@@ -2,8 +2,8 @@ import AWS from "aws-sdk";
 import fs from 'fs';
 import Handlebars from 'handlebars';
 
-const sendVerificationEmail = (email, data) => {
-  fs.readFile("./src/aws/verificationEmailTemplate.hbs", function (err, htmlTemplate) {
+const sendEmail = (templatePath, email, subject, data) => {
+  fs.readFile(templatePath, function (err, htmlTemplate) {
     if (err) {
       console.log("Unable to load HTML Template");
       throw err;
@@ -25,7 +25,7 @@ const sendVerificationEmail = (email, data) => {
       Message: {
         Subject: {
           Charset: 'UTF-8',
-          Data: 'Verify your email'
+          Data: subject
         },
         Body: {
           Html: {
@@ -49,4 +49,4 @@ const sendVerificationEmail = (email, data) => {
   });
 }
 
-export default sendVerificationEmail;
+export default sendEmail;
