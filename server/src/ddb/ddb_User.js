@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import config from "../config.js";
 
 import { putItem, getItem, deleteItem, query, updateItem } from "../aws/ddbActions.js";
-import { sendVerificationEmail } from "../aws/ses/emailTypes.js";
+import { sendVerificationEmail, sendPasswordResetEmail } from "../aws/ses/emailTypes.js";
 import msToTimeString from "../utils/msToTimeString.js";
 
 const saltRounds = 10;
@@ -55,6 +55,18 @@ class ddb_User {
     return user || false;
   }
 
+  static async getPasswordReset(email) {
+    const params = {
+      TableName: config.database.resetPassword,
+      Key: {
+        email: email
+      }
+    }
+    const passwordReset = await getItem(params);
+
+    return passwordReset || false;
+  }
+
   static async getVerification(email) {
     const params = {
       TableName: config.database.verification,
@@ -83,7 +95,7 @@ class ddb_User {
     return uuid;
   }
 
-  static verify = async (email, uuid) => {
+  static async verify(email, uuid) {
     const user = await ddb_User.getUser(email);
     if (user.verifiedEmail) {
       return "email already verified";
@@ -116,6 +128,65 @@ class ddb_User {
     };
     await updateItem(params);
     return "verification successful";
+  }
+
+  static async createResetPassword(email) {
+    const date = new Date();
+    const uuid = uuidv4();
+    const params = {
+      TableName: config.database.resetPassword,
+      Item: {
+        email: email,
+        uuid: uuid,
+        created: date.toUTCString()
+      }
+    };
+    await putItem(params);
+
+    return uuid;
+  }
+
+  static async forgotPassword(email) {
+    const user = await ddb_User.getUser(email);
+    if (!user) {
+      return "email not registered";
+    }
+    const uuid = await ddb_User.createResetPassword(email);
+    sendPasswordResetEmail(email, {
+      name: email.split("@")[0],
+      resetPasswordLink: `http://localhost:3000/reset-password?email=${email}&uuid=${uuid}`,
+      expirationTime: msToTimeString(config.passwordResetMaxAge)
+    });
+    return "password reset email sent";
+  }
+
+  static async resetPassword(email, uuid, newPassword) {
+    const passwordReset = await ddb_User.getPasswordReset(email);
+    if (!passwordReset) {
+      return "no active password reset for this email";
+    }
+
+    const passwordResetCreatedAt = new Date(passwordReset.created);
+    const currentDate = new Date();
+    if (uuid !== passwordReset.uuid) {
+      return "invalid password reset";
+    }
+    if (currentDate.getTime() - passwordResetCreatedAt.getTime() > config.passwordResetMaxAge) {
+      return "password reset expired";
+    }
+
+    const params = {
+      TableName: config.database.users,
+      Key: {
+        email: email,
+      },
+      UpdateExpression: "set cryptedPassword = :newCryptedPassword",
+      ExpressionAttributeValues: {
+        ":newCryptedPassword": Bcrypt.hashSync(newPassword, saltRounds),
+      }
+    };
+    await updateItem(params);
+    return "reset password successful";
   }
 }
 

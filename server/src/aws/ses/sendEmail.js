@@ -15,7 +15,6 @@ const sendEmail = (templatePath, email, subject, data) => {
 
     var templateHtml = Handlebars.compile(htmlTemplate.toString());
     var bodyHtml = templateHtml(emailData);
-    console.log("bodyHtml:", bodyHtml);
 
     AWS.config.update({ region: 'us-east-2' });
     var params = {

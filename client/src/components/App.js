@@ -9,6 +9,7 @@ import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 
 import EmailVerificationPage from "./EmailVerificationPage.js";
+import ResetPasswordPage from "./ResetPasswordPage.js";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -35,6 +36,7 @@ const App = (props) => {
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/verify" component={EmailVerificationPage} />
+        <Route exact path="/reset-password" component={ResetPasswordPage} />
       </Switch>
     </Router>
   );

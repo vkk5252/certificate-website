@@ -62,9 +62,26 @@ const SignInForm = () => {
     });
   };
 
-  const handleForgotPassword = (event) => {
+  const handleForgotPassword = async (event) => {
     event.preventDefault();
-    console.log("Forgot password");
+    try {
+      const response = await fetch("/api/v1/reset-password/send-email", {
+        method: "POST",
+        body: JSON.stringify(userPayload),
+        headers: new Headers({
+          "Content-Type": "application/json",
+        })
+      })
+      const body = await response.json()
+      if (!response.ok) {
+        const errorMessage = `${response.status} (${response.statusText})`
+        const error = new Error(errorMessage)
+        setErrors(userData);
+        throw (error)
+      }
+    } catch (err) {
+      console.error(`Error in fetch: ${err.message}`)
+    }
   }
 
   if (shouldRedirect) {
