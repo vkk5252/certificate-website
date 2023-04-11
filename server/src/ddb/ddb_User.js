@@ -5,6 +5,7 @@ import config from "../config.js";
 
 import { putItem, getItem, deleteItem, query, updateItem } from "../aws/ddbActions.js";
 import sendVerificationEmail from "../aws/sendVerificationEmail.js";
+import msToTimeString from "../utils/msToTimeString.js";
 
 const saltRounds = 10;
 
@@ -34,7 +35,8 @@ class ddb_User {
       uuid = await ddb_User.createEmailVerification(email);
       sendVerificationEmail(email, {
         name: email.split("@")[0],
-        verificationLink: `http://localhost:3000/verify?email=${email}&uuid=${uuid}`
+        verificationLink: `http://localhost:3000/verify?email=${email}&uuid=${uuid}`,
+        expirationTime: msToTimeString(config.emailVerificationMaxAge)
       });
     }
 
