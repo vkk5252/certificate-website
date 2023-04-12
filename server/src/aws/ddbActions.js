@@ -36,6 +36,7 @@ const getItem = async (params) => {
     return data.Item;
   } catch (err) {
     console.log("Error", err);
+    console.log("Params:", params)
     return { message: "error" };
   }
 };
