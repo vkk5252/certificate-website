@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
 
 import getCurrentUser from "../services/getCurrentUser";
@@ -31,12 +31,16 @@ const App = (props) => {
       <TopBar user={currentUser} />
       <Switch>
         <Route exact path="/">
+          <Redirect to="/user-sessions/new" />
+        </Route>
+        <Route exact path="/home">
           <h2>Hello from react</h2>
         </Route>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/verify" component={EmailVerificationPage} />
         <Route exact path="/reset-password" component={ResetPasswordPage} />
+        
       </Switch>
     </Router>
   );

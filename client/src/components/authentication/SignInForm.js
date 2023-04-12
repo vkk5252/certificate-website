@@ -48,7 +48,7 @@ const SignInForm = () => {
           setErrors(userData);
           throw (error)
         }
-        setShouldRedirect("/")
+        setShouldRedirect("/home");
       } catch (err) {
         console.error(`Error in fetch: ${err.message}`)
       }

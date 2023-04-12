@@ -35,7 +35,7 @@ class ddb_User {
       uuid = await ddb_User.createEmailVerification(email);
       sendVerificationEmail(email, {
         name: email.split("@")[0],
-        verificationLink: `http://localhost:3000/verify?email=${email}&uuid=${uuid}`,
+        verificationLink: getNodeEnv() === "production" ? `http://localhost:3000/verify?email=${email}&uuid=${uuid}` : "production url",
         expirationTime: msToTimeString(config.emailVerificationMaxAge)
       });
     }
@@ -154,7 +154,7 @@ class ddb_User {
     const uuid = await ddb_User.createResetPassword(email);
     sendPasswordResetEmail(email, {
       name: email.split("@")[0],
-      resetPasswordLink: `http://localhost:3000/reset-password?email=${email}&uuid=${uuid}`,
+      resetPasswordLink: getNodeEnv() === "production" ? `http://localhost:3000/reset-password?email=${email}&uuid=${uuid}` : "production url",
       expirationTime: msToTimeString(config.passwordResetMaxAge)
     });
     return "password reset email sent";
