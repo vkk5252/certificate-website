@@ -34,4 +34,6 @@ app.use(rootRouter);
 app.listen(configuration.web.port, configuration.web.host, () => {
   console.log("Server is listening...");
 });
+
+console.log("env:", process.env);
 export default app;
