@@ -6,6 +6,7 @@ import config from "../config.js";
 import { putItem, getItem, deleteItem, query, updateItem } from "../aws/ddbActions.js";
 import { sendVerificationEmail, sendPasswordResetEmail } from "../aws/ses/emailTypes.js";
 import msToTimeString from "../utils/msToTimeString.js";
+import getNodeEnv from "../config/getNodeEnv.js";
 
 const saltRounds = 10;
 
