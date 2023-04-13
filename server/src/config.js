@@ -19,7 +19,7 @@ export default {
     passwordReset: "./src/aws/ses/templates/passwordResetEmailTemplate.hbs"
   },
   envUrls: {
-    production: "https://dcert-app.herokuapp.com/",
+    production: "https://dcert-app.herokuapp.com",
     development: "http://localhost:3000"
   }
 };
