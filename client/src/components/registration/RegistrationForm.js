@@ -65,7 +65,7 @@ const RegistrationForm = () => {
             setErrors(userData.errors);
             throw error;
           }
-          setShouldRedirect(true);
+          setShouldRedirect("/home");
       } catch (err) {
         console.error(`Error in fetch: ${err.message}`);
       }
@@ -80,7 +80,7 @@ const RegistrationForm = () => {
   };
 
   if (shouldRedirect) {
-    location.href = "/";
+    location.href = shouldRedirect;
   }
 
   return (

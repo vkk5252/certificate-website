@@ -17,5 +17,9 @@ export default {
   emailTemplatePaths: {
     verification: "./src/aws/ses/templates/verificationEmailTemplate.hbs",
     passwordReset: "./src/aws/ses/templates/passwordResetEmailTemplate.hbs"
+  },
+  envUrls: {
+    production: "https://dcert-app.herokuapp.com/",
+    development: "http://localhost:3000"
   }
 };

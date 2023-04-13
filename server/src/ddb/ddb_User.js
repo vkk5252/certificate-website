@@ -6,7 +6,6 @@ import config from "../config.js";
 import { putItem, getItem, deleteItem, query, updateItem } from "../aws/ddbActions.js";
 import { sendVerificationEmail, sendPasswordResetEmail } from "../aws/ses/emailTypes.js";
 import msToTimeString from "../utils/msToTimeString.js";
-import getNodeEnv from "../config/getNodeEnv.js";
 
 const saltRounds = 10;
 
@@ -36,7 +35,7 @@ class ddb_User {
       uuid = await ddb_User.createEmailVerification(email);
       sendVerificationEmail(email, {
         name: email.split("@")[0],
-        verificationLink: getNodeEnv() === "production" ? `http://localhost:3000/verify?email=${email}&uuid=${uuid}` : "production url",
+        verificationLink: config.envUrls[config.nodeEnv] + `/verify?email=${email}&uuid=${uuid}`,
         expirationTime: msToTimeString(config.emailVerificationMaxAge)
       });
     }
@@ -155,7 +154,7 @@ class ddb_User {
     const uuid = await ddb_User.createResetPassword(email);
     sendPasswordResetEmail(email, {
       name: email.split("@")[0],
-      resetPasswordLink: getNodeEnv() === "production" ? `http://localhost:3000/reset-password?email=${email}&uuid=${uuid}` : "production url",
+      resetPasswordLink: config.envUrls[config.nodeEnv] + `/reset-password?email=${email}&uuid=${uuid}`,
       expirationTime: msToTimeString(config.passwordResetMaxAge)
     });
     return "password reset email sent";
