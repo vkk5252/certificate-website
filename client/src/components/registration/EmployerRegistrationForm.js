@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import FormError from "../layout/FormError";
 import config from "../../config";
 
-const RegistrationForm = () => {
+const EmployerRegistrationForm = () => {
   const [userPayload, setUserPayload] = useState({
     email: "",
     password: "",
     passwordConfirmation: "",
-    userType: "employee",
+    userType: "employer",
   });
   const [errors, setErrors] = useState({});
   const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -127,4 +127,4 @@ const RegistrationForm = () => {
   );
 };
 
-export default RegistrationForm;
+export default EmployerRegistrationForm;

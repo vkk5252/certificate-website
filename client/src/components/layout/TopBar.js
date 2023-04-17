@@ -18,7 +18,12 @@ const TopBar = ({ user }) => {
     </li>,
     <li key="sign-up">
       <Link to="/users/new" className="button">
-        Register
+        Employee Register 
+      </Link>
+    </li>,
+    <li key="sign-up-employer">
+      <Link to="/users/new/employer" className="button">
+        Employer Register 
       </Link>
     </li>,
   ];

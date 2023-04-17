@@ -5,6 +5,9 @@ import { hot } from "react-hot-loader/root";
 import getCurrentUser from "../services/getCurrentUser";
 import "../assets/scss/main.scss";
 import RegistrationForm from "./registration/RegistrationForm";
+import HomeEmployee from "./HomeEmployee";
+import HomeEmployer from "./HomeEmployer";
+import EmployerRegistrationForm from "./registration/EmployerRegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 
@@ -33,10 +36,10 @@ const App = (props) => {
         <Route exact path="/">
           <Redirect to="/user-sessions/new" />
         </Route>
-        <Route exact path="/home">
-          <h2>Hello from react</h2>
-        </Route>
+        <Route exact path="/home" component={HomeEmployee} />
+        <Route exact path="/home/employer" component={HomeEmployer} />
         <Route exact path="/users/new" component={RegistrationForm} />
+        <Route exact path="/users/new/employer" component={EmployerRegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/verify" component={EmailVerificationPage} />
         <Route exact path="/reset-password" component={ResetPasswordPage} />

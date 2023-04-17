@@ -18,13 +18,14 @@ class ddb_User {
     return { registeredEmail, validCredentials, user };
   }
 
-  static async createUser(email, password) {
+  static async createUser(email, password, userType) {
     const params = {
       TableName: config.database.users,
       ConditionExpression: "attribute_not_exists(email)",
       Item: {
         email: email,
         cryptedPassword: Bcrypt.hashSync(password, saltRounds),
+        userType: userType,
         verifiedEmail: false
       }
     };

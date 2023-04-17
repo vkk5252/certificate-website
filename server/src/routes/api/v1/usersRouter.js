@@ -5,9 +5,9 @@ import ddb_User from "../../../ddb/ddb_User.js"
 const usersRouter = new express.Router();
 
 usersRouter.post("/", async (req, res) => {
-  const { email, password, passwordConfirmation } = req.body;
+  const { email, password, passwordConfirmation, userType } = req.body;
   try {
-    const persistedUser = await ddb_User.createUser(email, password);
+    const persistedUser = await ddb_User.createUser(email, password, userType);
     if (persistedUser) {
       return req.login(persistedUser, () => {
         return res.status(201).json({ user: persistedUser });
