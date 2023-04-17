@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const HomeEmployer = (props) => {
   return (
-		<div> Home Employer </div>
+		<div> Employer Dashboard</div>
 	)
 }
 
