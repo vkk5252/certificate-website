@@ -6,8 +6,15 @@
 - yarn install
 - yarn run dev
 
-# Deploying to Heroku
 
 ## install heroku
 - brew tap heroku/brew && brew install heroku
+
+# Deploying to Heroku
+- heroku login -- login in the browser
+- heroku git:remote -a dcert-app
+- git push heroku main
+
+- heroku run bash
+- heroku logs 
 
