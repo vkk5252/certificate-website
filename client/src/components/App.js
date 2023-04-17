@@ -20,7 +20,7 @@ const App = (props) => {
     try {
       const user = await getCurrentUser()
       setCurrentUser(user)
-    } catch(err) {
+    } catch (err) {
       setCurrentUser(null)
     }
   }
@@ -29,6 +29,19 @@ const App = (props) => {
     fetchCurrentUser()
   }, [])
 
+  console.log(currentUser);
+  let specificRoutes;
+  if (currentUser?.userType === "employer") {
+    specificRoutes = [
+      <Route exact path="/home" component={HomeEmployer} />
+    ];
+  }
+  if (currentUser?.userType === "employee") {
+    specificRoutes = [
+      <Route exact path="/home" component={HomeEmployee} />
+    ];
+  }
+
   return (
     <Router>
       <TopBar user={currentUser} />
@@ -36,14 +49,13 @@ const App = (props) => {
         <Route exact path="/">
           <Redirect to="/user-sessions/new" />
         </Route>
-        <Route exact path="/home" component={HomeEmployee} />
-        <Route exact path="/home/employer" component={HomeEmployer} />
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/users/new/employer" component={EmployerRegistrationForm} />
+        {specificRoutes}
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/verify" component={EmailVerificationPage} />
         <Route exact path="/reset-password" component={ResetPasswordPage} />
-        
+        <Route>Unauthorized for {window.location.pathname}</Route>
       </Switch>
     </Router>
   );

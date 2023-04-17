@@ -3,6 +3,7 @@ import path from "path";
 import logger from "morgan";
 import bodyParser from "body-parser";
 import { fileURLToPath } from "url";
+import nocache from "nocache";
 import "./boot.js";
 import configuration from "./config.js";
 import addMiddlewares from "./middlewares/addMiddlewares.js";
@@ -20,6 +21,7 @@ app.engine(
   })
 );
 app.set("view engine", "hbs");
+app.use(nocache());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public")));
