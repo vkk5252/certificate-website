@@ -7,9 +7,17 @@ import logo from "../../assets/DCertGroup-logo.png";
 const TopBar = ({ user }) => {
   const unauthenticatedListItemsLeft = [];
 
-  const authenticatedListItemsLeft = [
+  const authenticatedListItemsLeftEmployee = [
     <li className="menu-item">
       <Link to="/home">Home</Link>
+    </li>
+  ];
+  const authenticatedListItemsLeftEmployer = [
+    <li className="menu-item">
+      <Link to="/home">Home</Link>
+    </li>,
+    <li className="menu-item">
+      <Link to="/employee-grid">Candidates</Link>
     </li>
   ];
   const unauthenticatedListItemsRight = [
@@ -39,7 +47,7 @@ const TopBar = ({ user }) => {
       <div className="top-bar-left">
         <ul className="menu">
           <img id="logo" src={logo} />
-          {user ? authenticatedListItemsLeft : unauthenticatedListItemsLeft}
+          {user ? (user.userType === "employer" ? authenticatedListItemsLeftEmployer : authenticatedListItemsLeftEmployee) : unauthenticatedListItemsLeft}
         </ul>
       </div>
       <div className="top-bar-right">

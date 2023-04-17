@@ -5,8 +5,9 @@ import { hot } from "react-hot-loader/root";
 import getCurrentUser from "../services/getCurrentUser";
 import "../assets/scss/main.scss";
 import RegistrationForm from "./registration/RegistrationForm";
-import HomeEmployee from "./HomeEmployee";
-import HomeEmployer from "./HomeEmployer";
+import HomeEmployee from "./employee/HomeEmployee";
+import HomeEmployer from "./employer/HomeEmployer";
+import EmployeeGrid from "./employer/EmployeeGrid";
 import EmployerRegistrationForm from "./registration/EmployerRegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
@@ -33,7 +34,8 @@ const App = (props) => {
   let specificRoutes;
   if (currentUser?.userType === "employer") {
     specificRoutes = [
-      <Route exact path="/home" component={HomeEmployer} />
+      <Route exact path="/home" component={HomeEmployer} />, 
+      <Route exact path="/employee-grid" component={EmployeeGrid} />
     ];
   }
   if (currentUser?.userType === "employee") {
