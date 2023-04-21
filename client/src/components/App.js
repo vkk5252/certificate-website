@@ -10,6 +10,7 @@ import HomeEmployer from "./employer/HomeEmployer";
 import EmployeeGrid from "./employer/EmployeeGrid";
 import EmployerRegistrationForm from "./registration/EmployerRegistrationForm";
 import SignInForm from "./authentication/SignInForm";
+import VerifyEmailForm from "./authentication/VerifyEmailForm";
 import TopBar from "./layout/TopBar";
 
 import EmailVerificationPage from "./EmailVerificationPage.js";
@@ -52,6 +53,7 @@ const App = (props) => {
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/verify" component={EmailVerificationPage} />
         <Route exact path="/reset-password" component={ResetPasswordPage} />
+        <Route exact path="/verify-email" component={VerifyEmailForm} />
         <Route>Unauthorized for {window.location.pathname}</Route>
       </Switch>
     </Router>
