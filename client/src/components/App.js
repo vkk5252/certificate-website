@@ -30,7 +30,6 @@ const App = (props) => {
     fetchCurrentUser()
   }, [])
 
-  console.log(currentUser);
   let specificRoutes;
   if (currentUser?.userType === "employer") {
     specificRoutes = [
