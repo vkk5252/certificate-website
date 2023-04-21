@@ -30,7 +30,6 @@ const nodes = [
 
 const EmployeeGrid = (props) => {
 	const data = { nodes };
-
 	const theme = useTheme(getTheme());
 
 	const COLUMNS = [
