@@ -1,61 +1,61 @@
-import * as React from 'react';
+import React, { useEffect, useState } from "react";
 
-import { CompactTable } from "@table-library/react-table-library/compact";
+import { Table, Header, HeaderRow, Body, Row, HeaderCell, Cell } from '@table-library/react-table-library/table';
 import { useTheme } from "@table-library/react-table-library/theme";
 import { getTheme } from "@table-library/react-table-library/baseline";
 
-const nodes = [
-	{
-    id: '1',
-    name: 'VSCode',
-    deadline: new Date(2020, 1, 17),
-    type: 'SETUP',
-    isComplete: true,
-  },
-  {
-    id: '2',
-    name: 'JavaScript',
-    deadline: new Date(2020, 2, 28),
-    type: 'LEARN',
-    isComplete: true,
-  },
-  {
-    id: '3',
-    name: 'React',
-    deadline: new Date(2020, 3, 8),
-    type: 'LEARN',
-    isComplete: false,
-  }
-];
-
-const EmployeeGrid = (props) => {
-	const data = { nodes };
-
+const EmployeeGrid = ({ user }) => {
+	const [gridData, setGridData] = useState({ nodes: [] });
 	const theme = useTheme(getTheme());
 
-	const COLUMNS = [
-		{ label: "Task", renderCell: (item) => item.name },
-		{
-			label: "Deadline",
-			renderCell: (item) =>
-				item.deadline.toLocaleDateString("en-US", {
-					year: "numeric",
-					month: "2-digit",
-					day: "2-digit",
-				}),
-		},
-		{ label: "Type", renderCell: (item) => item.type },
-		{
-			label: "Complete",
-			renderCell: (item) => item.isComplete.toString(),
-		},
-		{ label: "Tasks", renderCell: (item) => item.nodes?.length },
-	];
+	const getGridData = async () => {
+		const response = await fetch(`/api/v1/get-grid-data?user=${user.email}`);
+		let { nodes } = await response.json();
+		nodes.forEach((item) => item.deadline = new Date(item.deadline));
+		setGridData({ nodes });
+	}
+
+	useEffect(() => {
+		getGridData();
+	}, []);
+
 	return (
 		<>
 			<div> Employee Grid</div>
 			<div id="grid">
-				<CompactTable columns={COLUMNS} data={data} theme={theme} />
+				<Table data={gridData} theme={theme}>
+					{(tableList) => (
+						<>
+							<Header>
+								<HeaderRow>
+									<HeaderCell>Task</HeaderCell>
+									<HeaderCell>Deadline</HeaderCell>
+									<HeaderCell>Type</HeaderCell>
+									<HeaderCell>Complete</HeaderCell>
+									<HeaderCell>Tasks</HeaderCell>
+								</HeaderRow>
+							</Header>
+
+							<Body>
+								{tableList.map((item) => (
+									<Row key={item.id} item={item}>
+										<Cell>{item.name}</Cell>
+										<Cell>
+											{item.deadline.toLocaleDateString('en-US', {
+												year: 'numeric',
+												month: '2-digit',
+												day: '2-digit',
+											})}
+										</Cell>
+										<Cell>{item.type}</Cell>
+										<Cell>{item.isComplete.toString()}</Cell>
+										<Cell>{item.nodes?.length}</Cell>
+									</Row>
+								))}
+							</Body>
+						</>
+					)}
+				</Table>
 			</div>
 		</>
 	)
