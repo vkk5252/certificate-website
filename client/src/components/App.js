@@ -29,21 +29,7 @@ const App = (props) => {
 
   useEffect(() => {
     fetchCurrentUser()
-  }, [])
-
-  console.log(currentUser);
-  let specificRoutes;
-  if (currentUser?.userType === "employer") {
-    specificRoutes = [
-      <Route exact path="/home" component={HomeEmployer} />, 
-      <Route exact path="/employee-grid" component={EmployeeGrid} />
-    ];
-  }
-  if (currentUser?.userType === "employee") {
-    specificRoutes = [
-      <Route exact path="/home" component={HomeEmployee} />
-    ];
-  }
+  }, []);
 
   return (
     <Router>
@@ -54,7 +40,16 @@ const App = (props) => {
         </Route>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/users/new/employer" component={EmployerRegistrationForm} />
-        {specificRoutes}
+        {
+          currentUser?.userType === "employer" ?
+            <>
+              <Route exact path="/home" component={HomeEmployer} />
+              <Route exact path="/employee-grid" component={EmployeeGrid} />
+            </>
+            : currentUser?.userType === "employee" ?
+              <Route exact path="/home" component={HomeEmployee} />
+            : null 
+        }
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/verify" component={EmailVerificationPage} />
         <Route exact path="/reset-password" component={ResetPasswordPage} />

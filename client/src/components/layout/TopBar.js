@@ -8,15 +8,15 @@ const TopBar = ({ user }) => {
   const unauthenticatedListItemsLeft = [];
 
   const authenticatedListItemsLeftEmployee = [
-    <li className="menu-item">
+    <li className="menu-item" key="home">
       <Link to="/home">Home</Link>
     </li>
   ];
   const authenticatedListItemsLeftEmployer = [
-    <li className="menu-item">
+    <li className="menu-item" key="home">
       <Link to="/home">Home</Link>
     </li>,
-    <li className="menu-item">
+    <li className="menu-item" key="employee-grid">
       <Link to="/employee-grid">Candidates</Link>
     </li>
   ];
