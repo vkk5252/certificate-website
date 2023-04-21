@@ -25,18 +25,19 @@ const TopBar = ({ user }) => {
       <Link to="/user-sessions/new">Sign In</Link>
     </li>,
     <li key="sign-up">
-      <Link to="/users/new" className="button">
-        Employee Register 
+      <Link to="/users/new"> 
+        User Registration 
       </Link>
     </li>,
     <li key="sign-up-employer">
-      <Link to="/users/new/employer" className="button">
-        Employer Register 
+      <Link to="/users/new/employer">
+        Business Registration 
       </Link>
     </li>,
   ];
 
   const authenticatedListItemsRight = [
+    <p key="user" className="menu-item">{user?.email}</p>,
     <li key="sign-out">
       <SignOutButton />
     </li>,

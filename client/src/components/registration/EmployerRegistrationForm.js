@@ -86,7 +86,7 @@ const EmployerRegistrationForm = () => {
 
   return (
     <div className="grid-container">
-      <h1>Register</h1>
+      <h1>Business Registration Form</h1>
       <form onSubmit={onSubmit}>
         <div>
           <label>
