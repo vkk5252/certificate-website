@@ -4,10 +4,11 @@ import queryString from "query-string";
 
 import FormError from "./layout/FormError.js";
 
-const ResetPasswordPage = (props) => {
+const ResetPasswordPage = ({ setPasswordResetPopup }) => {
   const [userPayload, setUserPayload] = useState({ newPassword: "", newPasswordConfirmation: "" });
   const [successMessage, setSuccessMessage] = useState("");
   const [errors, setErrors] = useState({});
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
   const { search } = useLocation();
   const { email, uuid } = queryString.parse(search);
@@ -61,7 +62,9 @@ const ResetPasswordPage = (props) => {
             setSuccessMessage(message);
             throw error;
           }
-          setSuccessMessage("Password reset successful")
+          setSuccessMessage("Password reset successful");
+          setPasswordResetPopup(true);
+          setShouldRedirect("/user-sessions/new");
       } catch (err) {
         console.error(`Error in fetch: ${err.message}`);
       }
@@ -74,6 +77,10 @@ const ResetPasswordPage = (props) => {
       [event.currentTarget.name]: event.currentTarget.value,
     });
   };
+  
+  if (shouldRedirect) {
+    location.href = shouldRedirect;
+  }
 
   return (
     <>
