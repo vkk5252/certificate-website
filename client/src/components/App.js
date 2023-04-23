@@ -12,7 +12,6 @@ import EmployerRegistrationForm from "./registration/EmployerRegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import VerifyEmailForm from "./authentication/VerifyEmailForm";
 import TopBar from "./layout/TopBar";
-
 import EmailVerificationPage from "./EmailVerificationPage.js";
 import ResetPasswordPage from "./ResetPasswordPage.js";
 import ForgotPasswordPage from "./ForgotPasswordPage.js";
@@ -22,17 +21,19 @@ import GridDemo from "./employer/GridDemo.js";
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [passwordResetPopup, setPasswordResetPopup] = useState(false);
+  const [triedFetchUser, setTriedFetchUser] = useState(false);
   const fetchCurrentUser = async () => {
     try {
-      const user = await getCurrentUser()
-      setCurrentUser(user)
+      const user = await getCurrentUser();
+      setCurrentUser(user);
     } catch (err) {
-      setCurrentUser(null)
+      setCurrentUser(null);
     }
+    setTriedFetchUser(true);
   }
 
   useEffect(() => {
-    fetchCurrentUser()
+    fetchCurrentUser();
   }, []);
 
   return (
@@ -40,7 +41,7 @@ const App = (props) => {
       <TopBar user={currentUser} />
       <Switch>
         <Route exact path="/">
-          <Redirect to="/user-sessions/new" />
+          {triedFetchUser ? <Redirect to={currentUser ? "/home" : "/user-sessions/new"} /> : null}
         </Route>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/users/new/employer" component={EmployerRegistrationForm} />
@@ -48,9 +49,7 @@ const App = (props) => {
           currentUser?.userType === "employer" ?
             <>
               <Route exact path="/home" component={HomeEmployer} />
-              <Route exact path="/employee-grid">
-                <EmployeeGrid user={currentUser} />
-              </Route>
+              <Route exact path="/employee-grid" component={EmployeeGrid} />
               <Route exact path="/grid-demo" component={GridDemo} />
             </>
             : currentUser?.userType === "employee" ?

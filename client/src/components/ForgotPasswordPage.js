@@ -5,7 +5,6 @@ import FormError from "./layout/FormError";
 const ForgotPasswordPage = (props) => {
   const [userPayload, setUserPayload] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
-  const [open, setOpen] = useState(true);
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
   const validateEmail = (payload) => {

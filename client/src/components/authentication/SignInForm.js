@@ -193,6 +193,7 @@ const SignInForm = ({ passwordResetPopup, setPasswordResetPopup }) => {
                 value={userPayload.email}
                 onChange={onInputChange}
                 variant="filled"
+                helperText={<span style={{color: "red"}}>{errors.email}</span>}
               />
               <TextField
                 margin="normal"
@@ -206,6 +207,7 @@ const SignInForm = ({ passwordResetPopup, setPasswordResetPopup }) => {
                 value={userPayload.password}
                 onChange={onInputChange}
                 variant="filled"
+                helperText={<span style={{color: "red"}}>{errors.password}</span>}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
