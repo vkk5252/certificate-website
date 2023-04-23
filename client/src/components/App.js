@@ -16,9 +16,11 @@ import TopBar from "./layout/TopBar";
 import EmailVerificationPage from "./EmailVerificationPage.js";
 import ResetPasswordPage from "./ResetPasswordPage.js";
 import ForgotPasswordPage from "./ForgotPasswordPage.js";
+import ForgotPasswordEmailSent from "./ForgotPasswordEmailSent.js";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [passwordResetPopup, setPasswordResetPopup] = useState(false);
   const fetchCurrentUser = async () => {
     try {
       const user = await getCurrentUser()
@@ -27,6 +29,7 @@ const App = (props) => {
       setCurrentUser(null)
     }
   }
+  console.log(passwordResetPopup);
 
   useEffect(() => {
     fetchCurrentUser()
@@ -51,12 +54,20 @@ const App = (props) => {
             </>
             : currentUser?.userType === "employee" ?
               <Route exact path="/home" component={HomeEmployee} />
-            : null 
+              : null
         }
         <Route exact path="/forgot-password" component={ForgotPasswordPage} />
-        <Route exact path="/user-sessions/new" component={SignInForm} />
+        <Route exact path="/forgot-password/email-sent" component={ForgotPasswordEmailSent} />
+        <Route exact path="/user-sessions/new">
+          <SignInForm
+            passwordResetPopup={passwordResetPopup}
+            setPasswordResetPopup={setPasswordResetPopup}
+          />
+        </Route>
         <Route exact path="/verify" component={EmailVerificationPage} />
-        <Route exact path="/reset-password" component={ResetPasswordPage} />
+        <Route exact path="/reset-password">
+          <ResetPasswordPage setPasswordResetPopup={setPasswordResetPopup} />
+        </Route>
         <Route exact path="/verify-email" component={VerifyEmailForm} />
         <Route>Unauthorized for {window.location.pathname}</Route>
       </Switch>

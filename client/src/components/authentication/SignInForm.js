@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import config from "../../config";
 import FormError from "../layout/FormError";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import Button from '@mui/material/Button';
+import CloseIcon from '@mui/icons-material/Close';
 
-const SignInForm = () => {
+const SignInForm = ({ passwordResetPopup, setPasswordResetPopup }) => {
   const [userPayload, setUserPayload] = useState({ email: "", password: "" });
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [errors, setErrors] = useState({});
@@ -73,6 +80,36 @@ const SignInForm = () => {
 
   return (
     <>
+      <Box sx={{ width: '100%' }}>
+        <Collapse in={passwordResetPopup}>
+          <Alert
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setPasswordResetPopup(false);
+                }}
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+            sx={{ mb: 2 }}
+          >
+            Close me!
+          </Alert>
+        </Collapse>
+        <Button
+          disabled={passwordResetPopup}
+          variant="outlined"
+          onClick={() => {
+            setPasswordResetPopup(true);
+          }}
+        >
+          Re-open
+        </Button>
+      </Box>
       <div className="grid-container" onSubmit={onSubmit}>
         <h1>Sign In</h1>
         <form>
