@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import { Table, Header, HeaderRow, Body, Row, HeaderCell, Cell } from '@table-library/react-table-library/table';
 import { useTheme } from "@table-library/react-table-library/theme";
-import { getTheme } from "@table-library/react-table-library/baseline";
+import { DEFAULT_OPTIONS, getTheme } from '@table-library/react-table-library/material-ui';
+// import { getTheme } from "@table-library/react-table-library/baseline";
 
 const EmployeeGrid = ({ user }) => {
 	const [gridData, setGridData] = useState({ nodes: [] });
@@ -19,37 +20,42 @@ const EmployeeGrid = ({ user }) => {
 		getGridData();
 	}, []);
 
+	const resize = { minWidth: 500 };
+
 	return (
 		<>
 			<div> Employee Grid</div>
 			<div id="grid">
-				<Table data={gridData} theme={theme}>
+				<Table
+					data={gridData}
+					theme={theme}
+				>
 					{(tableList) => (
 						<>
 							<Header>
 								<HeaderRow>
-									<HeaderCell>Task</HeaderCell>
-									<HeaderCell>Deadline</HeaderCell>
-									<HeaderCell>Type</HeaderCell>
-									<HeaderCell>Complete</HeaderCell>
-									<HeaderCell>Tasks</HeaderCell>
+									<HeaderCell resize={resize}>First name</HeaderCell>
+									<HeaderCell>Last name</HeaderCell>
+									<HeaderCell>Email</HeaderCell>
+									<HeaderCell>Address</HeaderCell>
+									<HeaderCell>Status</HeaderCell>
+									<HeaderCell>Verified</HeaderCell>
+									<HeaderCell>Proof</HeaderCell>
+									<HeaderCell>Email sent?</HeaderCell>
 								</HeaderRow>
 							</Header>
 
 							<Body>
 								{tableList.map((item) => (
 									<Row key={item.id} item={item}>
-										<Cell>{item.name}</Cell>
-										<Cell>
-											{item.deadline.toLocaleDateString('en-US', {
-												year: 'numeric',
-												month: '2-digit',
-												day: '2-digit',
-											})}
-										</Cell>
-										<Cell>{item.type}</Cell>
-										<Cell>{item.isComplete.toString()}</Cell>
-										<Cell>{item.nodes?.length}</Cell>
+										<Cell>{item.firstName}</Cell>
+										<Cell>{item.lastName}</Cell>
+										<Cell>{item.email}</Cell>
+										<Cell>{item.address}</Cell>
+										<Cell>{item.status}</Cell>
+										<Cell>{item.verified}</Cell>
+										<Cell>{item.proof}</Cell>
+										<Cell>{item.emailSent}</Cell>
 									</Row>
 								))}
 							</Body>
