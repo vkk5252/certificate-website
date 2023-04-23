@@ -18,6 +18,28 @@ class ddb_User {
     return { registeredEmail, validCredentials, user };
   }
 
+  static async saveUserInfo(email, firstName, lastName, address, city, zipcode) {
+    const user = await ddb_User.getUser(email);
+
+    const params = {
+      TableName: config.database.users,
+      Key: {
+        email: email,
+      },
+      UpdateExpression: "set firstName = :firstName, lastName = :lastName, address = :address, city = :city, zipcode = :zipcode",
+      ExpressionAttributeValues: {
+        ":firstName": firstName,
+        ":lastName": lastName,
+        ":address": address, 
+        ":city": city, 
+        ":zipcode": zipcode
+      }
+    };
+    await updateItem(params);
+    return "saved successful";
+  }
+
+
   static async createUser(email, password, userType) {
     const params = {
       TableName: config.database.users,
