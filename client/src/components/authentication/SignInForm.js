@@ -192,6 +192,7 @@ const SignInForm = ({ passwordResetPopup, setPasswordResetPopup }) => {
                 autoFocus
                 value={userPayload.email}
                 onChange={onInputChange}
+                variant="filled"
               />
               <TextField
                 margin="normal"
@@ -204,6 +205,7 @@ const SignInForm = ({ passwordResetPopup, setPasswordResetPopup }) => {
                 autoComplete="current-password"
                 value={userPayload.password}
                 onChange={onInputChange}
+                variant="filled"
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
