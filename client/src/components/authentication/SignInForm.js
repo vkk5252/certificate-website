@@ -30,21 +30,6 @@ const SignInForm = () => {
     return Object.keys(newErrors).length ? false : true;
   };
 
-  const validateEmail = (payload) => {
-    setErrors({});
-    const { email } = payload;
-    const emailRegexp = config.validation.email.regexp;
-    let newErrors = {};
-    if (!email.match(emailRegexp)) {
-      newErrors = {
-        ...newErrors,
-        email: email.length ? "not an email" : "is required",
-      };
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length ? false : true;
-  }
-
   const onSubmit = async (event) => {
     event.preventDefault()
     if (validateInput(userPayload)) {
@@ -79,27 +64,7 @@ const SignInForm = () => {
 
   const handleForgotPassword = async (event) => {
     event.preventDefault();
-    if (validateEmail(userPayload)) {
-      try {
-        const response = await fetch("/api/v1/reset-password/send-email", {
-          method: "POST",
-          body: JSON.stringify(userPayload),
-          headers: new Headers({
-            "Content-Type": "application/json",
-          })
-        })
-        const body = await response.json();
-        setErrors({ password: body.message });
-        if (!response.ok) {
-          const errorMessage = `${response.status} (${response.statusText})`
-          const error = new Error(errorMessage)
-          setErrors(userData);
-          throw (error)
-        }
-      } catch (err) {
-        console.error(`Error in fetch: ${err.message}`)
-      }
-    }
+    setShouldRedirect("/forgot-password");
   }
 
   if (shouldRedirect) {

@@ -15,6 +15,7 @@ import TopBar from "./layout/TopBar";
 
 import EmailVerificationPage from "./EmailVerificationPage.js";
 import ResetPasswordPage from "./ResetPasswordPage.js";
+import ForgotPasswordPage from "./ForgotPasswordPage.js";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -52,6 +53,7 @@ const App = (props) => {
               <Route exact path="/home" component={HomeEmployee} />
             : null 
         }
+        <Route exact path="/forgot-password" component={ForgotPasswordPage} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/verify" component={EmailVerificationPage} />
         <Route exact path="/reset-password" component={ResetPasswordPage} />

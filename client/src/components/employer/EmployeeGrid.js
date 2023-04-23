@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { Table, Header, HeaderRow, Body, Row, HeaderCell, Cell } from '@table-library/react-table-library/table';
 import { useTheme } from "@table-library/react-table-library/theme";
-import { DEFAULT_OPTIONS, getTheme } from '@table-library/react-table-library/material-ui';
-// import { getTheme } from "@table-library/react-table-library/baseline";
+import { getTheme } from "@table-library/react-table-library/baseline";
 
 const EmployeeGrid = ({ user }) => {
 	const [gridData, setGridData] = useState({ nodes: [] });
