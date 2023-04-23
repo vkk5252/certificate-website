@@ -17,6 +17,7 @@ import EmailVerificationPage from "./EmailVerificationPage.js";
 import ResetPasswordPage from "./ResetPasswordPage.js";
 import ForgotPasswordPage from "./ForgotPasswordPage.js";
 import ForgotPasswordEmailSent from "./ForgotPasswordEmailSent.js";
+import GridDemo from "./employer/GridDemo.js";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -50,6 +51,7 @@ const App = (props) => {
               <Route exact path="/employee-grid">
                 <EmployeeGrid user={currentUser} />
               </Route>
+              <Route exact path="/grid-demo" component={GridDemo} />
             </>
             : currentUser?.userType === "employee" ?
               <Route exact path="/home" component={HomeEmployee} />

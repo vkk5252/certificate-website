@@ -7,7 +7,7 @@ const MemoizedRow = React.memo(GridRow);
 
 const MemoizedColumnHeaders = React.memo(GridColumnHeaders);
 
-const EmployeeGrid = (props) => {
+const GridDemo = (props) => {
 	const { data } = useDemoData({
 		dataSet: 'Commodity',
 		rowLength: 100000,
@@ -18,7 +18,7 @@ const EmployeeGrid = (props) => {
 
 	return (
 		<>
-			<div> Employee Grid</div>
+			<div>Grid demo</div>
 			<div id="grid">
 				<Box sx={{ height: 520, width: '100%' }}>
 					<DataGrid
@@ -38,4 +38,4 @@ const EmployeeGrid = (props) => {
 	)
 }
 
-export default EmployeeGrid;
+export default GridDemo;

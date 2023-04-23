@@ -18,6 +18,9 @@ const TopBar = ({ user }) => {
     </li>,
     <li className="menu-item" key="employee-grid">
       <Link to="/employee-grid">Candidates</Link>
+    </li>,
+    <li className="menu-item" key="grid-demo">
+      <Link to="/grid-demo">Grid demo</Link>
     </li>
   ];
   const unauthenticatedListItemsRight = [
