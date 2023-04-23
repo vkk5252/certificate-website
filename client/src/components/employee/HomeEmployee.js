@@ -4,44 +4,52 @@ import config from "../../config";
 
 const HomeEmployee = () => {
   const [userPayload, setUserPayload] = useState({
-    email: "",
-    password: "",
-    passwordConfirmation: "",
-    userType: "employer",
+    firstName: "",
+    lastName: "",
+    address: "", 
+    city: "",
+    zipcode: "",
   });
   const [errors, setErrors] = useState({});
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
   const validateInput = (payload) => {
-    const { email, password, passwordConfirmation } = payload;
-    const emailRegexp = config.validation.email.regexp;
+    const { firstName, lastName, address, city, zipcode } = payload;
     let newErrors = {};
-    if (!email.match(emailRegexp)) {
+    
+    if (firstName.trim() == "") {
       newErrors = {
         ...newErrors,
-        email: email.length ? "not an email" : "is required",
+        firstName: "is required",
       };
     }
 
-    if (password.trim() == "") {
+    if (lastName.trim() == "") {
       newErrors = {
         ...newErrors,
-        password: "is required",
+        lastName: "is required",
       };
     }
 
-    if (passwordConfirmation.trim() === "") {
+    if (address.trim() == "") {
       newErrors = {
         ...newErrors,
-        passwordConfirmation: "is required",
+        address: "is required",
       };
-    } else {
-      if (passwordConfirmation !== password) {
-        newErrors = {
-          ...newErrors,
-          passwordConfirmation: "does not match password",
-        };
-      }
+    }
+
+    if (city.trim() == "") {
+      newErrors = {
+        ...newErrors,
+        city: "is required",
+      };
+    }
+
+    if (zipcode.trim() == "") {
+      newErrors = {
+        ...newErrors,
+        zipcode: "is required",
+      };
     }
 
     setErrors(newErrors);
@@ -52,7 +60,7 @@ const HomeEmployee = () => {
     event.preventDefault();
     if (validateInput(userPayload)) {
       try {
-          const response = await fetch("/api/v1/users", {
+          const response = await fetch("/api/v1/user-info", {
             method: "POST",
             body: JSON.stringify(userPayload),
             headers: new Headers({
@@ -105,15 +113,22 @@ const HomeEmployee = () => {
         <div>
           <label>
             Address 
-            <input type="text" name="email" value={userPayload.email} onChange={onInputChange} />
-            <FormError error={errors.email} />
+            <input type="text" name="address" value={userPayload.address} onChange={onInputChange} />
+            <FormError error={errors.address} />
           </label>
         </div>
         <div>
           <label>
             City 
-            <input type="text" name="email" value={userPayload.email} onChange={onInputChange} />
-            <FormError error={errors.email} />
+            <input type="text" name="city" value={userPayload.city} onChange={onInputChange} />
+            <FormError error={errors.city} />
+          </label>
+        </div>
+        <div>
+          <label>
+            Zipcode 
+            <input type="text" name="zipcode" value={userPayload.zipcode} onChange={onInputChange} />
+            <FormError error={errors.zipcode} />
           </label>
         </div>
         <div>
