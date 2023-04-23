@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Redirect, useLocation } from "react-router-dom";
 import queryString from "query-string";
 
 import FormError from "./layout/FormError.js";
@@ -79,7 +79,8 @@ const ResetPasswordPage = ({ setPasswordResetPopup }) => {
   };
   
   if (shouldRedirect) {
-    location.href = shouldRedirect;
+    // location.href = shouldRedirect;
+    return <Redirect to="/user-sessions/new" />
   }
 
   return (

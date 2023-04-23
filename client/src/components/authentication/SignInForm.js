@@ -97,18 +97,9 @@ const SignInForm = ({ passwordResetPopup, setPasswordResetPopup }) => {
             }
             sx={{ mb: 2 }}
           >
-            Close me!
+            Password has been reset. You may use your new password.
           </Alert>
         </Collapse>
-        <Button
-          disabled={passwordResetPopup}
-          variant="outlined"
-          onClick={() => {
-            setPasswordResetPopup(true);
-          }}
-        >
-          Re-open
-        </Button>
       </Box>
       <div className="grid-container" onSubmit={onSubmit}>
         <h1>Sign In</h1>
