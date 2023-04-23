@@ -29,7 +29,6 @@ const App = (props) => {
       setCurrentUser(null)
     }
   }
-  console.log(passwordResetPopup);
 
   useEffect(() => {
     fetchCurrentUser()

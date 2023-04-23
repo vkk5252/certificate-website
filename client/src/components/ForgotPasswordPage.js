@@ -1,11 +1,4 @@
-import { useState } from "react";
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
-import Collapse from '@mui/material/Collapse';
-import Button from '@mui/material/Button';
-import CloseIcon from '@mui/icons-material/Close';
+import React, { useState } from "react";
 import config from "./../config";
 import FormError from "./layout/FormError";
 
@@ -69,36 +62,6 @@ const ForgotPasswordPage = (props) => {
 
   return (
     <>
-      <Box sx={{ width: '100%' }}>
-        <Collapse in={open}>
-          <Alert
-            action={
-              <IconButton
-                aria-label="close"
-                color="inherit"
-                size="small"
-                onClick={() => {
-                  setOpen(false);
-                }}
-              >
-                <CloseIcon fontSize="inherit" />
-              </IconButton>
-            }
-            sx={{ mb: 2 }}
-          >
-            Close me!
-          </Alert>
-        </Collapse>
-        <Button
-          disabled={open}
-          variant="outlined"
-          onClick={() => {
-            setOpen(true);
-          }}
-        >
-          Re-open
-        </Button>
-      </Box>
       <div className="grid-container" onSubmit={onSubmit}>
         <h1>Forgot password</h1>
         <form>
