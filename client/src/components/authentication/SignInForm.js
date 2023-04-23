@@ -21,6 +21,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import Popup from "../layout/Popup.js";
+
 const SignInForm = ({ passwordResetPopup, setPasswordResetPopup }) => {
   const [userPayload, setUserPayload] = useState({ email: "", password: "" });
   const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -81,6 +83,8 @@ const SignInForm = ({ passwordResetPopup, setPasswordResetPopup }) => {
     });
   };
 
+  console.log(userPayload);
+
   const handleForgotPassword = async (event) => {
     event.preventDefault();
     setShouldRedirect("/forgot-password");
@@ -105,18 +109,10 @@ const SignInForm = ({ passwordResetPopup, setPasswordResetPopup }) => {
 
   const theme = createTheme();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
-
   return (
     <>
-      <Box sx={{ width: '100%' }}>
+      <Popup popup={passwordResetPopup} setPopup={setPasswordResetPopup} message="Password has been reset. You may use your new password." />
+      {/* <Box sx={{ width: '100%' }}>
         <Collapse in={passwordResetPopup}>
           <Alert
             action={
@@ -136,7 +132,7 @@ const SignInForm = ({ passwordResetPopup, setPasswordResetPopup }) => {
             Password has been reset. You may use your new password.
           </Alert>
         </Collapse>
-      </Box>
+      </Box> */}
 
       {/* <div className="grid-container" onSubmit={onSubmit}>
         <h1>Sign In</h1>
@@ -184,7 +180,7 @@ const SignInForm = ({ passwordResetPopup, setPasswordResetPopup }) => {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
