@@ -6,7 +6,6 @@ import FormError from "./layout/FormError.js";
 
 const ResetPasswordPage = ({ setPasswordResetPopup }) => {
   const [userPayload, setUserPayload] = useState({ newPassword: "", newPasswordConfirmation: "" });
-  const [successMessage, setSuccessMessage] = useState("");
   const [errors, setErrors] = useState({});
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
@@ -44,7 +43,6 @@ const ResetPasswordPage = ({ setPasswordResetPopup }) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    setSuccessMessage("");
     if (validateInput(userPayload)) {
       try {
           const response = await fetch(`/api/v1/reset-password?email=${email}&uuid=${uuid}`, {
@@ -59,10 +57,8 @@ const ResetPasswordPage = ({ setPasswordResetPopup }) => {
           if (!response.ok) {
             const errorMessage = `${response.status} (${response.statusText})`;
             const error = new Error(errorMessage);
-            setSuccessMessage(message);
             throw error;
           }
-          setSuccessMessage("Password reset successful");
           setPasswordResetPopup(true);
           setShouldRedirect("/user-sessions/new");
       } catch (err) {
@@ -79,7 +75,6 @@ const ResetPasswordPage = ({ setPasswordResetPopup }) => {
   };
   
   if (shouldRedirect) {
-    // location.href = shouldRedirect;
     return <Redirect to="/user-sessions/new" />
   }
 
@@ -117,7 +112,6 @@ const ResetPasswordPage = ({ setPasswordResetPopup }) => {
           </div>
         </form>
       </div>
-      <h6>{successMessage}</h6>
     </>
   );
 }
