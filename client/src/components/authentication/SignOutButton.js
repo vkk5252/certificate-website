@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-
+import Button from '@mui/material/Button';
 const SignOutButton = () => {
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
