@@ -10,9 +10,28 @@ import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import logo from "../../assets/DCertGroup-logo.png";
 
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
 const TopBar = ({ user }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    console.log(">>>>>>> event ", event);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const unauthenticatedListItems = [
-    <Link variant="button" color="text.primary" href="/users/new" sx={{ my: 1, mx: 1.5 }} > Register </Link>,
+    <>
+    <Button id="basic-button" aria-controls={open ? 'basic-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick} > Register </Button>
+      <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose} MenuListProps={{ 'aria-labelledby': 'basic-button', }} >
+        <MenuItem onClick={handleClose}><a href="/users/new">User Registration</a></MenuItem>
+        <MenuItem onClick={handleClose}><a href="/users/new/employer">Business Registration</a></MenuItem>
+      </Menu>
+    </>,
     <Button href="/user-sessions/new" variant="outlined" sx={{ my: 1, mx: 1.5 }}> Login </Button>
   ];
   const authenticatedListItemsEmployee = [
