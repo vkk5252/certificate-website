@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import FormError from "../layout/FormError";
 import config from "../../config";
 
 import Avatar from '@mui/material/Avatar';
@@ -90,10 +89,6 @@ const RegistrationForm = () => {
   };
 
   const onInputChange = (event) => {
-    console.log("input change");
-    console.log(event.currentTarget.name)
-    console.log(event.currentTarget.value)
-    console.log(userPayload);
     setUserPayload({
       ...userPayload,
       [event.currentTarget.name]: event.currentTarget.value,
@@ -143,7 +138,6 @@ const RegistrationForm = () => {
               <TextField
                 autoComplete="given-name"
                 name="firstName"
-                required
                 fullWidth
                 id="firstName"
                 label="First Name"
@@ -151,11 +145,11 @@ const RegistrationForm = () => {
                 onChange={onInputChange}
                 variant="filled"
                 autoFocus
+                helperText={<span style={{ color: "red" }}>{errors.firstName}</span>}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                required
                 fullWidth
                 id="lastName"
                 label="Last Name"
@@ -164,6 +158,7 @@ const RegistrationForm = () => {
                 onChange={onInputChange}
                 variant="filled"
                 autoComplete="family-name"
+                helperText={<span style={{ color: "red" }}>{errors.lastName}</span>}
               />
             </Grid>
             <Grid item xs={12}>
@@ -177,6 +172,7 @@ const RegistrationForm = () => {
                 variant="filled"
                 value={userPayload.email}
                 onChange={onInputChange}
+                helperText={<span style={{ color: "red" }}>{errors.email}</span>}
               />
             </Grid>
             <Grid item xs={12}>
@@ -191,6 +187,22 @@ const RegistrationForm = () => {
                 onChange={onInputChange}
                 autoComplete="new-password"
                 variant="filled"
+                helperText={<span style={{ color: "red" }}>{errors.password}</span>}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name="passwordConfirmation"
+                label="Password confirmation"
+                type="password"
+                id="passwordConfirmation"
+                value={userPayload.passwordConfirmation}
+                onChange={onInputChange}
+                autoComplete="new-password"
+                variant="filled"
+                helperText={<span style={{ color: "red" }}>{errors.passwordConfirmation}</span>}
               />
             </Grid>
             <Grid item xs={12}>
