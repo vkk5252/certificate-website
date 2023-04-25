@@ -37,7 +37,6 @@ app.listen(configuration.web.port, configuration.web.host, () => {
   console.log("Server is listening...");
 });
 
-console.log("env:", process.env.SESSION_SECRET);
-console.log("env:", process.env.AWS_ACCESS_KEY_ID);
-console.log("env:", process.env.AWS_SECRET_ACCESS_KEY);
 export default app;
+
+

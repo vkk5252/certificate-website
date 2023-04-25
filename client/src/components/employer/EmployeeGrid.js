@@ -1,18 +1,35 @@
 import * as React from "react";
 import Box from '@mui/material/Box';
 import { DataGrid, GridRow, GridColumnHeaders } from '@mui/x-data-grid';
-import { useDemoData } from '@mui/x-data-grid-generator';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const MemoizedRow = React.memo(GridRow);
-
 const MemoizedColumnHeaders = React.memo(GridColumnHeaders);
 
 const EmployeeGrid = (props) => {
-	const { data } = useDemoData({
-		dataSet: 'Commodity',
-		rowLength: 100000,
-		editable: true,
-	});
+	let data = {
+		columns: [
+			{ field: 'firstName', headerName: 'First name', width: 150, editable: true },
+			{ field: 'lastName', headerName: 'Last name', width: 150 },
+			{ field: "address", headerName: "Address", width: 300 },
+			{
+				field: "status", headerName: "Status", width: 100,
+				renderCell: (params) => {
+					return (
+						<>
+							{params.value}
+							<div className="status-icon">
+								<CheckCircleOutlineIcon />
+							</div>
+						</>
+					);
+				}
+			}
+		],
+		rows: [
+			{ id: 1, firstName: 'Jon', lastName: 'Snow', address: "56 Abc Street, City, State 00000", status: "Sent" },
+		]
+	}
 
 	console.log(data);
 
