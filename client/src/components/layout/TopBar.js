@@ -18,32 +18,35 @@ const TopBar = ({ user }) => {
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-    console.log(">>>>>>> event ", event);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const unauthenticatedListItems = [
+  const unauthenticatedListItems = (
     <>
-    <Button id="basic-button" aria-controls={open ? 'basic-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick} > Register </Button>
+      <Button id="basic-button" aria-controls={open ? 'basic-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick} >Register</Button>
       <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose} MenuListProps={{ 'aria-labelledby': 'basic-button', }} >
         <MenuItem onClick={handleClose}><a href="/users/new">User Registration</a></MenuItem>
         <MenuItem onClick={handleClose}><a href="/users/new/employer">Business Registration</a></MenuItem>
       </Menu>
-    </>,
-    <Button href="/user-sessions/new" variant="outlined" sx={{ my: 1, mx: 1.5 }}> Login </Button>
-  ];
-  const authenticatedListItemsEmployee = [
-    <Link key="home" variant="button" color="text.primary" href="/home" sx={{ my: 1, mx: 1.5 }} >Home</Link>,
-    <SignOutButton key="signout" />
-  ];
-  const authenticatedListItemsEmployer = [
-    <Link key="home" variant="button" color="text.primary" href="/home" sx={{ my: 1, mx: 1.5 }} >Home</Link>,
-    <Link key="candidates" variant="button" color="text.primary" href="/employee-grid" sx={{ my: 1, mx: 1.5 }} >Candidates</Link>,
-    <Link key="gridDemo" variant="button" color="text.primary" href="/grid-demo" sx={{ my: 1, mx: 1.5 }}d >Grid Demo</Link>,
-    <SignOutButton key="signout" />
-  ];
+      <Button href="/user-sessions/new" variant="outlined" sx={{ my: 1, mx: 1.5 }}>Login</Button>
+    </>
+  );
+  const authenticatedListItemsEmployee = (
+    <>
+      <Link variant="button" color="text.primary" href="/home" sx={{ my: 1, mx: 1.5 }} >Home</Link>
+      <SignOutButton />
+    </>
+  );
+  const authenticatedListItemsEmployer = (
+    <>
+      <Link variant="button" color="text.primary" href="/home" sx={{ my: 1, mx: 1.5 }} >Home</Link>
+      <Link variant="button" color="text.primary" href="/employee-grid" sx={{ my: 1, mx: 1.5 }} >Candidates</Link>
+      <Link variant="button" color="text.primary" href="/grid-demo" sx={{ my: 1, mx: 1.5 }} d >Grid Demo</Link>
+      <SignOutButton />
+    </>
+  );
 
   return (
     <>
