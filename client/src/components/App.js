@@ -47,11 +47,11 @@ const App = (props) => {
         <Route exact path="/users/new/employer" component={EmployerRegistrationForm} />
         {
           currentUser?.userType === "employer" ?
-            <>
-              <Route exact path="/home" component={HomeEmployer} />
-              <Route exact path="/employee-grid" component={EmployeeGrid} />
-              <Route exact path="/grid-demo" component={GridDemo} />
-            </>
+            [
+              <Route exact path="/home" component={HomeEmployer} key="home" />,
+              <Route exact path="/employee-grid" component={EmployeeGrid} key="employeeGrid" />,
+              <Route exact path="/grid-demo" component={GridDemo} key="gridDemo" />
+            ]
             : currentUser?.userType === "employee" ?
               <Route exact path="/home" component={HomeEmployee} />
               : null
@@ -65,10 +65,10 @@ const App = (props) => {
           />
         </Route>
         <Route exact path="/verify" component={EmailVerificationPage} />
+        <Route exact path="/verify-email" component={VerifyEmailForm} />
         <Route exact path="/reset-password">
           <ResetPasswordPage setPasswordResetPopup={setPasswordResetPopup} />
         </Route>
-        <Route exact path="/verify-email" component={VerifyEmailForm} />
         <Route>Unauthorized for {window.location.pathname}</Route>
       </Switch>
     </Router>

@@ -12,18 +12,18 @@ import logo from "../../assets/DCertGroup-logo.png";
 
 const TopBar = ({ user }) => {
   const unauthenticatedListItems = [
-    <Link variant="button" color="text.primary" href="/users/new" sx={{ my: 1, mx: 1.5 }} > Register </Link>,
-    <Button href="/user-sessions/new" variant="outlined" sx={{ my: 1, mx: 1.5 }}> Login </Button>
+    <Link key="register" variant="button" color="text.primary" href="/users/new" sx={{ my: 1, mx: 1.5 }} >Register</Link>,
+    <Button key="login" href="/user-sessions/new" variant="outlined" sx={{ my: 1, mx: 1.5 }}>Login</Button>
   ];
   const authenticatedListItemsEmployee = [
-    <Link variant="button" color="text.primary" href="/home" sx={{ my: 1, mx: 1.5 }} > Home </Link>,
-    <SignOutButton />
+    <Link key="home" variant="button" color="text.primary" href="/home" sx={{ my: 1, mx: 1.5 }} >Home</Link>,
+    <SignOutButton key="signout" />
   ];
   const authenticatedListItemsEmployer = [
-    <Link variant="button" color="text.primary" href="/home" sx={{ my: 1, mx: 1.5 }} > Home </Link>,
-    <Link variant="button" color="text.primary" href="/employee-grid" sx={{ my: 1, mx: 1.5 }} > Candidates </Link>,
-    <Link variant="button" color="text.primary" href="/grid-demo" sx={{ my: 1, mx: 1.5 }} > Grid Demo</Link>,
-    <SignOutButton />
+    <Link key="home" variant="button" color="text.primary" href="/home" sx={{ my: 1, mx: 1.5 }} >Home</Link>,
+    <Link key="candidates" variant="button" color="text.primary" href="/employee-grid" sx={{ my: 1, mx: 1.5 }} >Candidates</Link>,
+    <Link key="gridDemo" variant="button" color="text.primary" href="/grid-demo" sx={{ my: 1, mx: 1.5 }}d >Grid Demo</Link>,
+    <SignOutButton key="signout" />
   ];
 
   return (
