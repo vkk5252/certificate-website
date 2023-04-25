@@ -38,7 +38,7 @@ const RegistrationForm = () => {
         email: email.length ? "not an email" : "is required",
       };
     }
-
+    
     if (password.trim() == "") {
       newErrors = {
         ...newErrors,
@@ -90,6 +90,10 @@ const RegistrationForm = () => {
   };
 
   const onInputChange = (event) => {
+    console.log("input change");
+    console.log(event.currentTarget.name)
+    console.log(event.currentTarget.value)
+    console.log(userPayload);
     setUserPayload({
       ...userPayload,
       [event.currentTarget.name]: event.currentTarget.value,

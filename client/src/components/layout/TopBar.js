@@ -14,18 +14,17 @@ const TopBar = ({ user }) => {
   const unauthenticatedListItems = [
     <Link variant="button" color="text.primary" href="/users/new" sx={{ my: 1, mx: 1.5 }} > Register </Link>,
     <Button href="/user-sessions/new" variant="outlined" sx={{ my: 1, mx: 1.5 }}> Login </Button>
-  ]
-
+  ];
   const authenticatedListItemsEmployee = [
     <Link variant="button" color="text.primary" href="/home" sx={{ my: 1, mx: 1.5 }} > Home </Link>,
     <SignOutButton />
-  ]
+  ];
   const authenticatedListItemsEmployer = [
     <Link variant="button" color="text.primary" href="/home" sx={{ my: 1, mx: 1.5 }} > Home </Link>,
     <Link variant="button" color="text.primary" href="/employee-grid" sx={{ my: 1, mx: 1.5 }} > Candidates </Link>,
     <Link variant="button" color="text.primary" href="/grid-demo" sx={{ my: 1, mx: 1.5 }} > Grid Demo</Link>,
     <SignOutButton />
-  ]
+  ];
 
   return (
     <>
