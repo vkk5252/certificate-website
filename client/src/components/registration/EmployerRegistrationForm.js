@@ -20,6 +20,7 @@ const EmployerRegistrationForm = () => {
   const [userPayload, setUserPayload] = useState({
     firstName: "",
     lastName: "",
+    businessName: "",
     email: "",
     password: "",
     passwordConfirmation: "",
@@ -29,7 +30,7 @@ const EmployerRegistrationForm = () => {
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
   const validateInput = (payload) => {
-    const { firstName, lastName, email, password, passwordConfirmation } = payload;
+    const { firstName, lastName, businessName, email, password, passwordConfirmation } = payload;
     const emailRegexp = config.validation.email.regexp;
     let newErrors = {};
     if (!email.match(emailRegexp)) {
@@ -166,6 +167,18 @@ const EmployerRegistrationForm = () => {
               <TextField
                 required
                 fullWidth
+                id="businessName"
+                label="Business Name"
+                name="businessName"
+                variant="filled"
+                value={userPayload.businessName}
+                onChange={onInputChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
                 id="email"
                 label="Email Address"
                 name="email"
@@ -187,6 +200,21 @@ const EmployerRegistrationForm = () => {
                 onChange={onInputChange}
                 autoComplete="new-password"
                 variant="filled"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name="passwordConfirmation"
+                label="Password confirmation"
+                type="password"
+                id="passwordConfirmation"
+                value={userPayload.passwordConfirmation}
+                onChange={onInputChange}
+                autoComplete="new-password"
+                variant="filled"
+                helperText={<span style={{ color: "red" }}>{errors.passwordConfirmation}</span>}
               />
             </Grid>
           </Grid>

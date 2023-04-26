@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-// import * as React from 'react';
+import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -207,12 +206,3 @@ function DashboardContent() {
 export default function Dashboard() {
   return <DashboardContent />;
 }
-
-// const HomeEmployer = (props) => {
-
-//   return (
-// 		<div>Employer Dashboard</div>
-// 	)
-// }
-
-// export default HomeEmployer;
