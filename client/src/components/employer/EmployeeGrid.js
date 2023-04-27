@@ -1,12 +1,24 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import { DataGrid, GridRow, GridColumnHeaders } from '@mui/x-data-grid';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 const MemoizedRow = React.memo(GridRow);
 const MemoizedColumnHeaders = React.memo(GridColumnHeaders);
 
 const EmployeeGrid = (props) => {
+	const [rows, setRows] = useState([]);
+	const getRows = async () => {
+		const response = await fetch(`/api/v1/grid-data`);
+		const body = await response.json();
+		const { rows } = body;
+		setRows(rows);
+	}
+	useEffect(() => {
+		getRows();
+	}, []);
 	let data = {
 		columns: [
 			{ field: 'firstName', headerName: 'First name', width: 150, editable: true },
@@ -18,20 +30,19 @@ const EmployeeGrid = (props) => {
 					return (
 						<>
 							{params.value}
-							<div className="status-icon">
-								<CheckCircleOutlineIcon />
-							</div>
+								{
+									{
+										"Sent": <CheckCircleOutlineIcon color="success"/>,
+										"Not sent": <HighlightOffIcon color="error"/>
+									}[params.value]
+								}
 						</>
 					);
 				}
 			}
 		],
-		rows: [
-			{ id: 1, firstName: 'Jon', lastName: 'Snow', address: "56 Abc Street, City, State 00000", status: "Sent" },
-		]
+		rows: rows
 	}
-
-	console.log(data);
 
 	return (
 		<>

@@ -18,7 +18,9 @@ const nodes = [
 
 gridRouter.get("/", (req, res) => {
   const { user } = req.query;
-  return res.status(200).json({ nodes });
+  return res.status(200).json({ rows: [
+    { id: 1, firstName: 'Jon', lastName: 'Snow', address: "56 Abc Street, City, State 00000", status: "Not sent" }
+  ]});
 });
 
 export default gridRouter;

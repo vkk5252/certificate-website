@@ -13,7 +13,7 @@ rootRouter.use("/api/v1/user-sessions", userSessionsRouter);
 rootRouter.use("/api/v1/users", usersRouter);
 rootRouter.use("/api/v1/verify-email", verificationRouter);
 rootRouter.use("/api/v1/reset-password", resetPasswordRouter);
-rootRouter.use("/api/v1/get-grid-data", gridRouter);
+rootRouter.use("/api/v1/grid-data", gridRouter);
 rootRouter.use("/api/v1/ses-verify-email", sesRouter);
 rootRouter.use("/api/v1/user-info", usersInfoRouter);
 
