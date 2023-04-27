@@ -1,5 +1,6 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../App.js";
 import Box from '@mui/material/Box';
 import { DataGrid, GridRow, GridColumnHeaders } from '@mui/x-data-grid';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -9,9 +10,10 @@ const MemoizedRow = React.memo(GridRow);
 const MemoizedColumnHeaders = React.memo(GridColumnHeaders);
 
 const EmployeeGrid = (props) => {
+	const user = useContext(UserContext);
 	const [rows, setRows] = useState([]);
 	const getRows = async () => {
-		const response = await fetch(`/api/v1/grid-data`);
+		const response = await fetch(`/api/v1/grid-data?user=${user.email}`);
 		const body = await response.json();
 		const { rows } = body;
 		setRows(rows);
