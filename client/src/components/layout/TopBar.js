@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import AppBar from '@mui/material/AppBar';
 import SignOutButton from "../authentication/SignOutButton.js";
+import { UserContext } from "../App.js";
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,7 +14,8 @@ import logo from "../../assets/DCertGroup-logo.png";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-const TopBar = ({ user }) => {
+const TopBar = (props) => {
+  const user = useContext(UserContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
