@@ -1,26 +1,13 @@
 import express from "express";
+import ddb_User from "../../../ddb/ddb_User.js";
 
 const gridRouter = new express.Router();
 
-const nodes = [
-  {
-    id: '1',
-    firstName: "John",
-    lastName: "Doe",
-    email: "johndoe@gmail.com",
-    address: "55 Mohawk Path, Holliston, MA 01746",
-    status: "initial",
-    verified: "no",
-    proof: "N/A",
-    emailSent: "no"
-  }
-];
-
-gridRouter.get("/", (req, res) => {
-  const { user } = req.query;
-  return res.status(200).json({ rows: [
-    { id: 1, firstName: 'Jon', lastName: 'Snow', address: "56 Abc Street, City, State 00000", status: "Not sent" }
-  ]});
+gridRouter.get("/", async (req, res) => {
+  const { userEmail } = req.query;
+  const { rows } = await ddb_User.getGrid(userEmail);
+  
+  return res.status(200).json({ rows });
 });
 
 export default gridRouter;

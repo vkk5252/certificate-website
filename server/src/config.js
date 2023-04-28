@@ -10,7 +10,8 @@ export default {
   database: {
     users: "certificate-website-users",
     verification: "certificate-website-verification",
-    resetPassword: "certificate-website-reset-password"
+    resetPassword: "certificate-website-reset-password",
+    grid: "certificate-website-grid"
   },
   emailTemplatePaths: {
     verification: "./src/aws/ses/templates/verificationEmailTemplate.hbs",

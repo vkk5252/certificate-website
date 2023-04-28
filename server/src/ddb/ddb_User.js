@@ -211,6 +211,19 @@ class ddb_User {
     await updateItem(params);
     return "reset password successful";
   }
+
+  static async getGrid(email) {
+      const params = {
+        TableName: config.database.grid,
+        Key: {
+          email: email
+        }
+      }
+      console.log(params);
+      const data = await getItem(params);
+  
+      return data || false;
+  }
 }
 
 export default ddb_User;

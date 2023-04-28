@@ -13,7 +13,7 @@ const EmployeeGrid = (props) => {
 	const user = useContext(UserContext);
 	const [rows, setRows] = useState([]);
 	const getRows = async () => {
-		const response = await fetch(`/api/v1/grid-data?user=${user.email}`);
+		const response = await fetch(`/api/v1/grid-data?userEmail=${user.email}`);
 		const body = await response.json();
 		const { rows } = body;
 		setRows(rows);
