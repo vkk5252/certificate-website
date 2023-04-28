@@ -23,9 +23,10 @@ const EmployeeGrid = (props) => {
 	}, []);
 	let data = {
 		columns: [
+			{ field: 'id', headerName: 'ID', width: 150, editable: true },
 			{ field: 'firstName', headerName: 'First name', width: 150, editable: true },
-			{ field: 'lastName', headerName: 'Last name', width: 150 },
-			{ field: "address", headerName: "Address", width: 300 },
+			{ field: 'lastName', headerName: 'Last name', width: 150, editable: true },
+			{ field: "address", headerName: "Address", width: 300, editable: true },
 			{
 				field: "status", headerName: "Status", width: 100,
 				renderCell: (params) => {
@@ -44,6 +45,14 @@ const EmployeeGrid = (props) => {
 			}
 		],
 		rows: rows
+	};
+
+	const handleRowUpdate = (newRow) => {
+		console.log("row update:", newRow);
+		return newRow;
+	}
+	const handleRowUpdateError = (error) => {
+		console.error("Row update error:", error);
 	}
 
 	return (
@@ -61,6 +70,8 @@ const EmployeeGrid = (props) => {
 							Row: MemoizedRow,
 							ColumnHeaders: MemoizedColumnHeaders,
 						}}
+						processRowUpdate={handleRowUpdate}
+						onProcessRowUpdateError={handleRowUpdateError}
 					/>
 				</Box>
 			</div>
