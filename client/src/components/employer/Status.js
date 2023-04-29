@@ -3,7 +3,6 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 const Status = ({ type }) => {
-  console.log(type)
   const { icon, color } = {
     "Sent": {
       icon: <CheckCircleOutlineIcon />,

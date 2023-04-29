@@ -85,11 +85,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 function DashboardContent() {
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
-
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -107,7 +102,7 @@ function DashboardContent() {
           }}
         >
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <h4 style={{marginBottom: "12px"}}>Dashboard</h4>
+            <h4 style={{ marginBottom: "12px" }}>Dashboard</h4>
             <Grid container spacing={3}>
               {/* Chart */}
               <Grid item xs={12} md={8} lg={9}>

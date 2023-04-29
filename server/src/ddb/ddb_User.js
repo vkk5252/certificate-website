@@ -215,14 +215,15 @@ class ddb_User {
   static async getGrid(email) {
       const params = {
         TableName: config.database.grid,
-        Key: {
-          email: email
+        IndexName: "email-index",
+        KeyConditionExpression: "email = :email",
+        ExpressionAttributeValues: {
+          ":email": email
         }
-      }
-      console.log(params);
-      const data = await getItem(params);
+      };
+      const response = await query(params);
   
-      return data || false;
+      return response.data.map(item => item.row) || false;
   }
 }
 

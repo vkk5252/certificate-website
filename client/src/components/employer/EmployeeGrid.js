@@ -14,10 +14,35 @@ const EmployeeGrid = (props) => {
 	const user = useContext(UserContext);
 	const [rows, setRows] = useState([]);
 	const getRows = async () => {
-		const response = await fetch(`/api/v1/grid-data?userEmail=${user.email}`);
-		const body = await response.json();
-		const { rows } = body;
-		setRows(rows);
+		try {
+			const response = await fetch(`/api/v1/grid-data?userEmail=${user.email}`);
+			const body = await response.json();
+			const { rows } = body;
+			setRows(rows);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+	const updateRow = async (updatedRow) => {
+		console.log("updating row");
+		try {
+			const response = await fetch(`/api/v1/grid-data?userEmail=${user.email}`, {
+				method: "POST",
+				body: JSON.stringify(updatedRow),
+				headers: new Headers({
+					"Content-Type": "application/json",
+				})
+			});
+			const body = await response.json();
+			if (!response.ok) {
+				const errorMessage = `${response.status} (${response.statusText})`;
+				const error = new Error(errorMessage);
+				throw (error);
+			}
+			console.log("row updated successfully");
+		} catch (err) {
+			console.error(`Error in fetch: ${err.message}`);
+		}
 	}
 	useEffect(() => {
 		getRows();
@@ -40,8 +65,9 @@ const EmployeeGrid = (props) => {
 		rows: rows
 	};
 
-	const handleRowUpdate = (newRow) => {
+	const handleRowUpdate = async (newRow) => {
 		console.log("row update:", newRow);
+		await updateRow(newRow);
 		return newRow;
 	}
 	const handleRowUpdateError = (error) => {

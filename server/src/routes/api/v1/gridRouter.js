@@ -5,9 +5,16 @@ const gridRouter = new express.Router();
 
 gridRouter.get("/", async (req, res) => {
   const { userEmail } = req.query;
-  const { rows } = await ddb_User.getGrid(userEmail);
-  
+  const rows = await ddb_User.getGrid(userEmail);
+
   return res.status(200).json({ rows });
+});
+
+gridRouter.post("/", async (req, res) => {
+  const { userEmail } = req.query;
+  console.log(req.body);
+
+  return res.status(200).json({ message: "test" });
 });
 
 export default gridRouter;
