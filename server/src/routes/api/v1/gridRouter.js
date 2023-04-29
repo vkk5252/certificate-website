@@ -12,9 +12,13 @@ gridRouter.get("/", async (req, res) => {
 
 gridRouter.post("/", async (req, res) => {
   const { userEmail } = req.query;
-  console.log(req.body);
+  const row = req.body;
+  console.log(row);
+  const message = await ddb_User.writeGrid(row);
+  console.log(message);
 
-  return res.status(200).json({ message: "test" });
+
+  return res.status(200).json({ message });
 });
 
 export default gridRouter;

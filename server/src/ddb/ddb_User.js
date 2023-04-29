@@ -30,8 +30,8 @@ class ddb_User {
       ExpressionAttributeValues: {
         ":firstName": firstName,
         ":lastName": lastName,
-        ":address": address, 
-        ":city": city, 
+        ":address": address,
+        ":city": city,
         ":zipcode": zipcode
       }
     };
@@ -213,17 +213,31 @@ class ddb_User {
   }
 
   static async getGrid(email) {
-      const params = {
-        TableName: config.database.grid,
-        IndexName: "email-index",
-        KeyConditionExpression: "email = :email",
-        ExpressionAttributeValues: {
-          ":email": email
-        }
-      };
-      const response = await query(params);
-  
-      return response.data.map(item => item.row) || false;
+    const params = {
+      TableName: config.database.grid,
+      IndexName: "email-index",
+      KeyConditionExpression: "email = :email",
+      ExpressionAttributeValues: {
+        ":email": email
+      }
+    };
+    const response = await query(params);
+
+    return response.data.map(item => item.row) || false;
+  }
+
+  static async writeGrid(row) {
+    const params = {
+      TableName: config.database.grid,
+      Item: {
+        id: "1",
+        email: "boss@gmail.com",
+        row: row
+      }
+    };
+    const result = await putItem(params);
+
+    return result.message;
   }
 }
 
