@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import { DataGrid, GridRow, GridColumnHeaders } from '@mui/x-data-grid';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import Status from "./Status.js";
 
 const MemoizedRow = React.memo(GridRow);
 const MemoizedColumnHeaders = React.memo(GridColumnHeaders);
@@ -28,18 +29,10 @@ const EmployeeGrid = (props) => {
 			{ field: 'lastName', headerName: 'Last name', width: 150, editable: true },
 			{ field: "address", headerName: "Address", width: 300, editable: true },
 			{
-				field: "status", headerName: "Status", width: 100,
+				field: "status", headerName: "Status", width: 150,
 				renderCell: (params) => {
 					return (
-						<>
-							{params.value}
-								{
-									{
-										"Sent": <CheckCircleOutlineIcon color="success"/>,
-										"Not sent": <HighlightOffIcon color="error"/>
-									}[params.value]
-								}
-						</>
+						<Status type={params.value} />
 					);
 				}
 			}
@@ -57,7 +50,7 @@ const EmployeeGrid = (props) => {
 
 	return (
 		<>
-			<div> Employee Grid</div>
+			<h4 style={{ marginBottom: "12px" }}>Employee Grid</h4>
 			<div id="grid">
 				<Box sx={{ height: 520, width: '100%' }}>
 					<DataGrid
