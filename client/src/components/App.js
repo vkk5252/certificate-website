@@ -71,7 +71,7 @@ const App = (props) => {
           <Route exact path="/reset-password">
             <ResetPasswordPage setPasswordResetPopup={setPasswordResetPopup} />
           </Route>
-          <Route>Unauthorized for {window.location.pathname}</Route>
+          <Route></Route>
         </Switch>
       </Router>
     </UserContext.Provider>

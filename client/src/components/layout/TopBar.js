@@ -37,7 +37,7 @@ const TopBar = (props) => {
   );
   const authenticatedListItemsEmployee = (
     <>
-      <Link variant="button" color="text.primary" href="/home" sx={{ my: 1, mx: 1.5 }} >Home</Link>
+      <Link variant="button" color="text.primary" href="/home" sx={{ my: 1, mx: 1.5 }} >User Info</Link>
       <SignOutButton />
     </>
   );
