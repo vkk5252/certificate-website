@@ -16,5 +16,5 @@
 - git push heroku main
 
 - heroku run bash
-- heroku logs 
+- heroku logs --tail 
 

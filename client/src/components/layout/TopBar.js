@@ -37,15 +37,15 @@ const TopBar = (props) => {
   );
   const authenticatedListItemsEmployee = (
     <>
-      <Link variant="button" color="text.primary" href="/home" sx={{ my: 1, mx: 1.5 }} >User Info</Link>
+      <Link variant="button" href="/home" sx={{ my: 1, mx: 1.5 }} >User Info</Link>
       <SignOutButton />
     </>
   );
   const authenticatedListItemsEmployer = (
     <>
-      <Link variant="button" color="text.primary" href="/home" sx={{ my: 1, mx: 1.5 }} >Home</Link>
-      <Link variant="button" color="text.primary" href="/employee-grid" sx={{ my: 1, mx: 1.5 }} >Candidates</Link>
-      <Link variant="button" color="text.primary" href="/grid-demo" sx={{ my: 1, mx: 1.5 }} d >Grid Demo</Link>
+      <Link variant="button" href="/home" sx={{ my: 1, mx: 1.5 }} >Dashboard</Link>
+      <Link variant="button" href="/employee-grid" sx={{ my: 1, mx: 1.5 }} >Candidates</Link>
+      <Link variant="button" href="/grid-demo" sx={{ my: 1, mx: 1.5 }} d >Grid Demo</Link>
       <SignOutButton />
     </>
   );
@@ -58,7 +58,7 @@ const TopBar = (props) => {
         position="static"
         color="default"
         elevation={0}
-        sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
+        sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` , bgcolor: 'text.primary'}}
       >
         <Toolbar sx={{ flexWrap: 'wrap' }}>
           <img id="logo" src={logo} style={{ width: "150px", height: "60px" }} />
