@@ -215,25 +215,21 @@ class ddb_User {
   static async getGrid(email) {
     const params = {
       TableName: config.database.grid,
-      IndexName: "email-index",
-      KeyConditionExpression: "email = :email",
+      KeyConditionExpression: "userEmail = :userEmail",
       ExpressionAttributeValues: {
-        ":email": email
+        ":userEmail": email
       }
     };
+
     const response = await query(params);
 
-    return response.data.map(item => item.row) || false;
+    return response.data || false;
   }
 
   static async writeGrid(row) {
     const params = {
       TableName: config.database.grid,
-      Item: {
-        id: "1",
-        email: "boss@gmail.com",
-        row: row
-      }
+      Item: row
     };
     const result = await putItem(params);
 
