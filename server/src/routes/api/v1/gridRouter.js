@@ -6,7 +6,6 @@ const gridRouter = new express.Router();
 gridRouter.get("/", async (req, res) => {
   const { userEmail } = req.query;
   const data = await ddb_User.getGrid(userEmail);
-  console.log(data);
 
   return res.status(200).json({ data });
 });
@@ -14,9 +13,14 @@ gridRouter.get("/", async (req, res) => {
 gridRouter.post("/", async (req, res) => {
   const { userEmail } = req.query;
   const row = req.body;
-  console.log(row);
   const message = await ddb_User.writeGrid(row);
-  console.log(message);
+
+  return res.status(message === "success" ? 200 : 400).json({ message });
+});
+
+gridRouter.delete("/", async (req, res) => {
+  const { email, id } = req.query;
+  const message = await ddb_User.deleteGridRow(email, id);
 
   return res.status(message === "success" ? 200 : 400).json({ message });
 });

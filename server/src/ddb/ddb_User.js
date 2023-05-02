@@ -220,7 +220,6 @@ class ddb_User {
         ":userEmail": email
       }
     };
-
     const response = await query(params);
 
     return response.data || false;
@@ -232,6 +231,19 @@ class ddb_User {
       Item: row
     };
     const result = await putItem(params);
+
+    return result.message;
+  }
+
+  static async deleteGridRow(email, id) {
+    const params = {
+      TableName: config.database.grid,
+      Key: {
+        "userEmail": email,
+        "id": id
+      }
+    }
+    const result = await deleteItem(params);
 
     return result.message;
   }

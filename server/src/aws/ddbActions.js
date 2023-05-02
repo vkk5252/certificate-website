@@ -43,7 +43,7 @@ const getItem = async (params) => {
 const deleteItem = async (params) => {
   try {
     await ddbDocClient.send(new DeleteCommand(params));
-    return { message: "success - deleted" }
+    return { message: "success" }
   } catch (err) {
     console.log("Error", err);
     return { message: "error" }
