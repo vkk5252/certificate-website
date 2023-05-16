@@ -5,11 +5,12 @@ import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
 
-const Popup = ({ popup, setPopup, message }) => {
+const Popup = ({ popup, setPopup, message, severity }) => {
   return (
     <Box sx={{ width: '100%' }}>
-      <Collapse in={popup}>
+      <Collapse in={!!popup}>
         <Alert
+          severity={severity}
           action={
             <IconButton
               aria-label="close"

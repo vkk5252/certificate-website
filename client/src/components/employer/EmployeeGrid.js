@@ -10,6 +10,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import Popup from "../layout/Popup.js";
 
 const MemoizedRow = React.memo(GridRow);
 const MemoizedColumnHeaders = React.memo(GridColumnHeaders);
@@ -19,6 +20,7 @@ const EmployeeGrid = (props) => {
 	const [rows, setRows] = useState([]);
 	const [editingId, setEditingId] = useState("");
 	const apiRef = useGridApiRef();
+	const [showPopup, setShowPopup] = useState(false);
 
 	const getRows = async () => {
 		try {
@@ -122,6 +124,19 @@ const EmployeeGrid = (props) => {
 			{ field: 'lastName', headerName: 'Last name', width: 150, editable: true },
 			{ field: "email", headerName: "Email", width: 300, editable: true },
 			{ field: "address", headerName: "Address", width: 300, editable: true },
+			// {
+			// 	field: "phoneNumber", headerName: "Phone number", width: 120, editable: true,
+			// 	renderCell: (params) => {
+			// 		// "1234567890"
+			// 		const numberString = params.value;
+			// 		return "(" + numberString.substring(0, 3) + ") " + numberString.substring(3, 6) + "-" + numberString.substring(6);
+			// 	},
+			// 	// preProcessEditCellProps: (params) => {
+			// 	// 	const hasError = params.props.value.length < 10;
+			// 	// 	// setShowPopup(true);
+			// 	// 	return { ...params.props, error: hasError };
+			// 	// },
+			// },
 			{
 				field: "status", headerName: "Status", width: 150,
 				renderCell: (params) => {
@@ -134,12 +149,38 @@ const EmployeeGrid = (props) => {
 		rows: rows
 	};
 
-	const handleRowUpdate = async (newRow) => {
-		await updateRow(newRow);
+	// const validateRow = (row) => {
+	// 	const validations = {
+	// 		phoneNumber: () => { }
+	// 	}
+	// 	console.log("validation");
+	// 	return false;
+	// }
+
+	// const useFakeMutation = () => {
+	// 	return React.useCallback(
+	// 		(row) =>
+	// 			new Promise((resolve, reject) => {
+	// 				if (row.phoneNumber.length < 10) {
+	// 					setShowPopup({ message: "Invalid phone number", severity: "error" });
+	// 					reject(new Error("phone number less than 10 digits"))
+	// 				} else {
+	// 					setShowPopup(false);
+	// 					resolve(row);
+	// 				}
+	// 			}),
+	// 		[],
+	// 	);
+	// };
+	// const mutateRow = useFakeMutation();
+
+	const handleRowUpdate = async (newRow, oldRow) => {
+			await updateRow(newRow);
 		return newRow;
 	};
 
 	const handleRowUpdateError = (error) => {
+		console.log("error")
 		console.error("Row update error:", error);
 	};
 
@@ -171,6 +212,7 @@ const EmployeeGrid = (props) => {
 					<Typography component="h1" variant="h5">
 						Employee Grid
 					</Typography>
+					<Popup popup={showPopup} setPopup={setShowPopup} message={showPopup.message} severity={showPopup.severity} />
 					<IconButton onClick={() => {
 						handleAddRow();
 					}}>
