@@ -138,13 +138,20 @@ const EmployeeGrid = (props) => {
 			// 	// },
 			// },
 			{
-				field: "status", headerName: "Status", width: 150,
+				field: "status", headerName: "Status", width: 300,
+				// renderCell: (params) => {
+				// 	return (
+				// 		<Status type={params.value} />
+				// 	);
+				// }
+			},
+			{
+				field: "created", headerName: "Date created", width: 120,
 				renderCell: (params) => {
-					return (
-						<Status type={params.value} />
-					);
+					const date = new Date(params.value);
+					return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
 				}
-			}
+			},
 		],
 		rows: rows
 	};
@@ -175,7 +182,7 @@ const EmployeeGrid = (props) => {
 	// const mutateRow = useFakeMutation();
 
 	const handleRowUpdate = async (newRow, oldRow) => {
-			await updateRow(newRow);
+		await updateRow(newRow);
 		return newRow;
 	};
 

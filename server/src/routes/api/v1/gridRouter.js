@@ -14,6 +14,7 @@ gridRouter.post("/", async (req, res) => {
   const { userEmail } = req.query;
   const row = req.body;
   const message = await ddb_User.writeGrid(row);
+  console.log(row);
 
   return res.status(message === "success" ? 200 : 400).json({ message });
 });
