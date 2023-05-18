@@ -40,14 +40,14 @@ const row = {
   created: 0
 }
 
-const addressSigmoid = x => 2 / (1 + (2.7182818 ** ((x - 40) / 40)));
-const addressProbDist = getProbabilityDistribution(addressSigmoid, 500);
+const addressSigmoid = x => (2 / (1 + (2.7182818 ** ((x - 40) / 40)))) + 0.01;
+const addressProbDist = getProbabilityDistribution(addressSigmoid, 3000);
 const dateSigmoid = x => 1 / (1 + (2.7182818 ** (2 - x)));
 let daysAgo = 0;
 let statusAdvanceProbability = 0;
 const weightedCoinFlip = (oddsTrue) => Math.random() < oddsTrue; 
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 200; i++) {
   row.firstName = _.sample(names);
   row.lastName = _.sample(surnames);
   row.email = `${row.firstName.toLowerCase()}.${row.lastName.toLowerCase()}@gmail.com`
