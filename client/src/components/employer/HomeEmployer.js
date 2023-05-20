@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -22,6 +22,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
+import ToggleButtons from "./ToggleButtons.js";
 
 function Copyright(props) {
   return (
@@ -85,6 +86,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 function DashboardContent() {
+  const [timePeriod, setTimePeriod] = useState("2 weeks");
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -102,7 +104,10 @@ function DashboardContent() {
           }}
         >
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <h4 style={{ marginBottom: "12px" }}>Dashboard</h4>
+            <div style={{ display: "inline" }}>
+              <h2 style={{ marginBottom: "12px" }}>Dashboard</h2>
+              <ToggleButtons timePeriod={timePeriod} setTimePeriod={setTimePeriod}/>
+            </div>
             <Grid container spacing={3}>
               {/* Chart */}
               <Grid item xs={12} md={8} lg={9}>
@@ -114,7 +119,7 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  <Chart />
+                  <Chart timePeriod={timePeriod}/>
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
