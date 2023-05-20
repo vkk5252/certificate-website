@@ -120,9 +120,9 @@ const EmployeeGrid = (props) => {
 					);
 				}
 			},
-			{ field: 'firstName', headerName: 'First name', width: 150, editable: true },
-			{ field: 'lastName', headerName: 'Last name', width: 150, editable: true },
-			{ field: "email", headerName: "Email", width: 300, editable: true },
+			{ field: 'firstName', headerName: 'First name', width: 100, editable: true },
+			{ field: 'lastName', headerName: 'Last name', width: 100, editable: true },
+			{ field: "email", headerName: "Email", width: 240, editable: true },
 			{ field: "address", headerName: "Address", width: 300, editable: true },
 			// {
 			// 	field: "phoneNumber", headerName: "Phone number", width: 120, editable: true,
@@ -138,7 +138,7 @@ const EmployeeGrid = (props) => {
 			// 	// },
 			// },
 			{
-				field: "status", headerName: "Status", width: 300,
+				field: "status", headerName: "Status", width: 200,
 				// renderCell: (params) => {
 				// 	return (
 				// 		<Status type={params.value} />
@@ -217,7 +217,7 @@ const EmployeeGrid = (props) => {
 			<div id="grid">
 				<div id="grid-top">
 					<Typography component="h1" variant="h5">
-						Employee Grid
+						Candidates
 					</Typography>
 					<Popup popup={showPopup} setPopup={setShowPopup} message={showPopup.message} severity={showPopup.severity} />
 					<IconButton onClick={() => {

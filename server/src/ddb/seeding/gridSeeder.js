@@ -43,19 +43,17 @@ const row = {
 const addressSigmoid = x => (2 / (1 + (2.7182818 ** ((x - 40) / 40)))) + 0.01;
 const addressProbDist = getProbabilityDistribution(addressSigmoid, 3000);
 const dateSigmoid = x => 1 / (1 + (2.7182818 ** (2 - x)));
-let daysAgo = 0;
-let statusAdvanceProbability = 0;
 const weightedCoinFlip = (oddsTrue) => Math.random() < oddsTrue; 
 
-for (let i = 0; i < 200; i++) {
+for (let i = 0; i < 10000; i++) {
   row.firstName = _.sample(names);
   row.lastName = _.sample(surnames);
   row.email = `${row.firstName.toLowerCase()}.${row.lastName.toLowerCase()}@gmail.com`
   row.id = uuidv4();
   row.address = `${randomFromProbabilityDistribution(addressProbDist)} ${_.sample(streets)}, ${_.sample(cities)}, ${_.sample(states)} ${`${Math.round(Math.random() * 100000)}`.padStart(5, "0")}`;
   
-  daysAgo = Math.ceil(Math.random() * 14);
-  statusAdvanceProbability = dateSigmoid(daysAgo);
+  let daysAgo = Math.ceil(Math.random() * 14);
+  let statusAdvanceProbability = dateSigmoid(daysAgo);
   for (const status of statuses) {
     row.status = status;
     if (!weightedCoinFlip(statusAdvanceProbability)) {
