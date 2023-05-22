@@ -50,7 +50,8 @@ const App = (props) => {
           {
             currentUser?.userType === "employer" ?
               [
-                <Route exact path="/home" component={Dashboard} key="home" />,
+                <Route exact path="/home" component={EmployeeGrid} key="home" />,
+                <Route exact path="/dashboard" component={Dashboard} key="home" />,
                 <Route exact path="/employee-grid" component={EmployeeGrid} key="employeeGrid" />,
                 <Route exact path="/grid-demo" component={GridDemo} key="gridDemo" />
               ]

@@ -43,9 +43,10 @@ const TopBar = (props) => {
   );
   const authenticatedListItemsEmployer = (
     <>
-      <Link variant="button" href="/home" sx={{ my: 1, mx: 1.5 }} >Dashboard</Link>
-      <Link variant="button" href="/employee-grid" sx={{ my: 1, mx: 1.5 }} >Candidates</Link>
-      <Link variant="button" href="/grid-demo" sx={{ my: 1, mx: 1.5 }} d >Grid Demo</Link>
+      <Link variant="button" href="/home" sx={{ my: 1, mx: 1.5 }} >Candidates</Link>
+      <Link variant="button" href="/dashboard" sx={{ my: 1, mx: 1.5 }} >Dashboard</Link>
+      {/* <Link variant="button" href="/employee-grid" sx={{ my: 1, mx: 1.5 }} >Candidates</Link> */}
+      {/* <Link variant="button" href="/grid-demo" sx={{ my: 1, mx: 1.5 }} d >Grid Demo</Link> */}
       <SignOutButton />
     </>
   );

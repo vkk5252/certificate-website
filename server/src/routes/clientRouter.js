@@ -11,6 +11,7 @@ const clientRoutes = [
   "/verify",
   "/reset-password",
   "/home",
+  "/dashboard",
   "/home/employer",
   "/user-session/new/employer",
   "/verify-email",
