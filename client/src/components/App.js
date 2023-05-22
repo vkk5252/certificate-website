@@ -6,7 +6,7 @@ import getCurrentUser from "../services/getCurrentUser";
 import "../assets/scss/main.scss";
 import RegistrationForm from "./registration/RegistrationForm";
 import HomeEmployee from "./employee/HomeEmployee";
-import HomeEmployer from "./employer/HomeEmployer";
+import Dashboard from "./employer/Dashboard/Dashboard.js";
 import EmployeeGrid from "./employer/EmployeeGrid";
 import EmployerRegistrationForm from "./registration/EmployerRegistrationForm";
 import SignInForm from "./authentication/SignInForm";
@@ -50,7 +50,7 @@ const App = (props) => {
           {
             currentUser?.userType === "employer" ?
               [
-                <Route exact path="/home" component={HomeEmployer} key="home" />,
+                <Route exact path="/home" component={Dashboard} key="home" />,
                 <Route exact path="/employee-grid" component={EmployeeGrid} key="employeeGrid" />,
                 <Route exact path="/grid-demo" component={GridDemo} key="gridDemo" />
               ]
