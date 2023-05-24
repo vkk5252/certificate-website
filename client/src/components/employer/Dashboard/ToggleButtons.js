@@ -17,13 +17,13 @@ const ToggleButtons = ({ timePeriod, setTimePeriod }) => {
         onChange={handleTimePeriod}
         aria-label="text"
       >
-        <ToggleButton value="week" aria-label="">
+        <ToggleButton value={7} aria-label="">
           Week
         </ToggleButton>
-        <ToggleButton value="2 weeks" aria-label="">
+        <ToggleButton value={14} aria-label="">
           2 Weeks
         </ToggleButton>
-        <ToggleButton value="month" aria-label="">
+        <ToggleButton value={30} aria-label="">
           Month
         </ToggleButton>
       </ToggleButtonGroup>

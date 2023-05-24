@@ -6,7 +6,6 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Chart from './Chart';
-import Orders from './Orders';
 import ToggleButtons from "./ToggleButtons.js";
 import StatusPieChart from "./StatusPieChart.js";
 import { UserContext } from "../../App";
@@ -16,20 +15,15 @@ import RecentGrid from "./RecentGrid.js";
 const mdTheme = createTheme();
 
 const Dashboard = () => {
-  const [timePeriod, setTimePeriod] = useState("2 weeks");
-  const days = {
-    "week": 7,
-    "2 weeks": 14,
-    "month": 30
-  }[timePeriod]
+  const [timePeriod, setTimePeriod] = useState(14);
   const initialData = () => {
-    const start = Math.floor((Date.now() - (days * 24 * 60 * 60 * 1000)));
+    const start = Math.floor((Date.now() - (timePeriod * 24 * 60 * 60 * 1000)));
     const startDate = new Date(start);
     const startDay = startDate.getDay();
     const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
     const barData = [];
-    for (let i = 0; i < days; i++) {
+    for (let i = 0; i < timePeriod; i++) {
       barData.push({
         name: `${dayNames[(startDay + i + 1) % 7].substring(0, 3)}`,
         count: 0,
@@ -43,23 +37,33 @@ const Dashboard = () => {
   }
   const [data, setData] = useState(initialData());
   const [gotData, setGotData] = useState(false);
+  const [activeBarIndex, setActiveBarIndex] = useState(false);
+  const [barHoverIndex, setBarHoverIndex] = useState(false)
   const user = useContext(UserContext);
-  const [activeStatus, setActiveStatus] = useState({});
 
   const getData = async () => {
     try {
-      const response = await fetch(`/api/v1/dashboard?userEmail=${user.email}&days=${days}`);
+      const response = await fetch(`/api/v1/dashboard?userEmail=${user.email}&timePeriod=${timePeriod}`);
       const body = await response.json();
       setData(body);
+      setGotData(true);
     } catch (err) {
       console.error("Error in fetch: ", err)
     }
   }
 
+  const determineHighlightedIndex = () => {
+    if (barHoverIndex || barHoverIndex === 0) {
+      return barHoverIndex;
+    } else if (activeBarIndex || activeBarIndex === 0) {
+      return activeBarIndex;
+    }
+    return false;
+  }
+
   useEffect(() => {
     getData();
   }, [timePeriod]);
-
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -83,7 +87,6 @@ const Dashboard = () => {
               <ToggleButtons timePeriod={timePeriod} setTimePeriod={setTimePeriod} />
             </div>
             <Grid container spacing={3}>
-              {/* Chart */}
               <Grid item xs={12} md={12} lg={12}>
                 <Paper
                   sx={{
@@ -96,6 +99,12 @@ const Dashboard = () => {
                   <Chart
                     timePeriod={timePeriod}
                     data={data.bar}
+                    gotData={gotData}
+                    activeBarIndex={activeBarIndex}
+                    setActiveBarIndex={setActiveBarIndex}
+                    barHoverIndex={barHoverIndex}
+                    setBarHoverIndex={setBarHoverIndex}
+                    highlightedIndex={determineHighlightedIndex()}
                   />
                 </Paper>
               </Grid>
@@ -105,27 +114,29 @@ const Dashboard = () => {
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 400,
+                    height: 500,
                   }}
                 >
-                  <StatusPieChart
-                    data={data.pie}
-                    activeStatus={activeStatus}
-                    setActiveStatus={setActiveStatus}
-                  />
-                     {activeStatus["name"] && `${Math.round(activeStatus.percent * 100)}% ${activeStatus.name}`}
+                  <div id="pie-and-legend">
+                    <StatusPieChart
+                      data={data.pie}
+                    />
+                  </div>
                 </Paper>
               </Grid>
-              {/* Recent Orders */}
               <Grid item xs={12} md={6} lg={7}>
                 <Paper sx={{
                   p: 2,
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: "space-between",
-                  height: 400
+                  height: 500
                 }}>
-                  <RecentGrid rows={data.grid || []} />
+                  <RecentGrid
+                    rows={data.grid || []}
+                    timePeriod={timePeriod}
+                    highlightedIndex={determineHighlightedIndex()}
+                  />
                 </Paper>
               </Grid>
             </Grid>

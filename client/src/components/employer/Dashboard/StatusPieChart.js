@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
 import Title from "../Title.js"
+import PieChartLegend from './PieChartLegend.js';
 
 
 const renderActiveShape = (props) => {
@@ -22,7 +23,7 @@ const renderActiveShape = (props) => {
         cx={cx}
         cy={cy}
         innerRadius={innerRadius}
-        outerRadius={outerRadius * 1.2}
+        outerRadius={outerRadius * 1.05}
         startAngle={startAngle}
         endAngle={endAngle}
         fill={fill}
@@ -30,12 +31,13 @@ const renderActiveShape = (props) => {
     </g>
   );
 };
+
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#ff331c'];
 
-const StatusPieChart = ({ data, activeStatus, setActiveStatus }) => {
+const StatusPieChart = ({ data }) => {
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [activeStatus, setActiveStatus] = useState({});
   const onPieEnter = ({ name, percent }, index) => {
-    // console.log(payload)
     setActiveIndex(index);
     setActiveStatus({ name, percent });
   };
@@ -48,7 +50,7 @@ const StatusPieChart = ({ data, activeStatus, setActiveStatus }) => {
   return (
     <>
       <Title>Candidate statuses</Title>
-      <ResponsiveContainer width="100%" height="80%">
+      <div id="pie">
         <PieChart width={300} height={300}>
           <Pie
             activeIndex={activeIndex}
@@ -64,15 +66,17 @@ const StatusPieChart = ({ data, activeStatus, setActiveStatus }) => {
             onMouseLeave={onPieLeave}
             animationDuration={700}
             animationBegin={0}
+            label={({ index }) => true ? "ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(index) : ""}
           >
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
         </PieChart>
-      </ResponsiveContainer>
+      </div>
+      <PieChartLegend data={data} activeIndex={activeIndex} />
     </>
   );
 }
 
-export default StatusPieChart;
+export default React.memo(StatusPieChart);

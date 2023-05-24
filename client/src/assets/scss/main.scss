@@ -69,3 +69,20 @@ body {
 .toggle-button {
   margin-bottom: 10px;
 }
+
+.pie-legend-entry {
+  margin: 0px;
+}
+
+#pie-and-legend {
+  display: flex;
+  flex-direction: column;
+}
+
+#pie {
+  align-self: center;
+}
+
+.highlighted-sector {
+  font-weight: bolder;
+}

@@ -6,7 +6,7 @@ import Title from "../Title.js";
 const MemoizedRow = React.memo(GridRow);
 const MemoizedColumnHeaders = React.memo(GridColumnHeaders);
 
-const RecentGrid = ({ rows }) => {
+const RecentGrid = ({ rows, timePeriod, highlightedIndex }) => {
 	let data = {
 		columns: [
 			{ field: 'firstName', headerName: 'First name', width: 100, editable: true },
@@ -22,13 +22,20 @@ const RecentGrid = ({ rows }) => {
 				}
 			},
 		],
-		rows: rows
+		rows: rows.filter((row) => {
+			if (row.created && highlightedIndex !== false) {
+				const dateSelectedMs = (new Date().getTime()) - ((timePeriod - highlightedIndex) * (24 * 60 * 60 * 1000));
+				const dateSelectedMsRounded = Math.floor(dateSelectedMs / (24 * 60 * 60 * 1000)) * (24 * 60 * 60 * 1000);
+				return dateSelectedMsRounded < row.created && row.created < (dateSelectedMsRounded + (24 * 60 * 60 * 1000));
+			}
+			return true;
+		})
 	};
 
 	return (
 		<>
 			<Title>Recent</Title>
-			<Box sx={{ height: 330, width: '100%' }}>
+			<Box sx={{ height: 430, width: '100%' }}>
 				<DataGrid
 					{...data}
 					loading={rows.length === 0}
