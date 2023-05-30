@@ -1,6 +1,6 @@
-import * as React from "react";
+import React from "react";
 import Box from '@mui/material/Box';
-import { DataGrid, GridRow, GridColumnHeaders, useGridApiRef } from '@mui/x-data-grid';
+import { DataGrid, GridRow, GridColumnHeaders } from '@mui/x-data-grid';
 import Title from "../Title.js";
 
 const MemoizedRow = React.memo(GridRow);

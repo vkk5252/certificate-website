@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 

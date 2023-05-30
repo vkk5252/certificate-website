@@ -1,10 +1,9 @@
-import * as React from "react";
+import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../App.js";
 import Box from '@mui/material/Box';
 import { DataGrid, GridRow, GridColumnHeaders, useGridApiRef } from '@mui/x-data-grid';
 import Typography from '@mui/material/Typography';
-import Status from "./Status.js";
 import { v4 as uuidv4 } from "uuid";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -82,10 +81,6 @@ const EmployeeGrid = (props) => {
 	const handleEditButton = (params) => {
 		apiRef.current.startCellEditMode({ id: params.id, field: 'firstName' });
 		apiRef.current.startRowEditMode({ id: params.id });
-		// console.log(params)
-		// setTimeout(() => {
-		// 	apiRef.current.stopRowEditMode({ id: params.id });
-		// }, 1000);
 	};
 
 	const handleDeleteButton = async (params) => {
@@ -97,7 +92,6 @@ const EmployeeGrid = (props) => {
 	}, []);
 
 	useEffect(() => {
-		console.log("editing id useeffect")
 		if (editingId) {
 			handleEditButton({ id: editingId });
 		}
@@ -124,27 +118,7 @@ const EmployeeGrid = (props) => {
 			{ field: 'lastName', headerName: 'Last name', width: 100, editable: true },
 			{ field: "email", headerName: "Email", width: 240, editable: true },
 			{ field: "address", headerName: "Address", width: 300, editable: true },
-			// {
-			// 	field: "phoneNumber", headerName: "Phone number", width: 120, editable: true,
-			// 	renderCell: (params) => {
-			// 		// "1234567890"
-			// 		const numberString = params.value;
-			// 		return "(" + numberString.substring(0, 3) + ") " + numberString.substring(3, 6) + "-" + numberString.substring(6);
-			// 	},
-			// 	// preProcessEditCellProps: (params) => {
-			// 	// 	const hasError = params.props.value.length < 10;
-			// 	// 	// setShowPopup(true);
-			// 	// 	return { ...params.props, error: hasError };
-			// 	// },
-			// },
-			{
-				field: "status", headerName: "Status", width: 200,
-				// renderCell: (params) => {
-				// 	return (
-				// 		<Status type={params.value} />
-				// 	);
-				// }
-			},
+			{ field: "status", headerName: "Status", width: 200 },
 			{
 				field: "created", headerName: "Date created", width: 120,
 				renderCell: (params) => {
@@ -156,38 +130,12 @@ const EmployeeGrid = (props) => {
 		rows: rows
 	};
 
-	// const validateRow = (row) => {
-	// 	const validations = {
-	// 		phoneNumber: () => { }
-	// 	}
-	// 	console.log("validation");
-	// 	return false;
-	// }
-
-	// const useFakeMutation = () => {
-	// 	return React.useCallback(
-	// 		(row) =>
-	// 			new Promise((resolve, reject) => {
-	// 				if (row.phoneNumber.length < 10) {
-	// 					setShowPopup({ message: "Invalid phone number", severity: "error" });
-	// 					reject(new Error("phone number less than 10 digits"))
-	// 				} else {
-	// 					setShowPopup(false);
-	// 					resolve(row);
-	// 				}
-	// 			}),
-	// 		[],
-	// 	);
-	// };
-	// const mutateRow = useFakeMutation();
-
 	const handleRowUpdate = async (newRow, oldRow) => {
 		await updateRow(newRow);
 		return newRow;
 	};
 
 	const handleRowUpdateError = (error) => {
-		console.log("error")
 		console.error("Row update error:", error);
 	};
 

@@ -1,14 +1,8 @@
-import * as React from 'react';
-import { useState, useEffect, useContext } from "react";
-import { useTheme } from '@mui/material/styles';
-import { LineChart, BarChart, Bar, Line, XAxis, YAxis, Label, ResponsiveContainer, Cell } from 'recharts';
+import React from 'react';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell } from 'recharts';
 import Title from '../Title';
-import { UserContext } from "../../App.js";
 
-const Chart = ({ timePeriod, data, gotData, activeBarIndex, setActiveBarIndex, barHoverIndex, setBarHoverIndex, highlightedIndex }) => {
-  console.log("chart rerender")
-  console.log((barHoverIndex >= 0 ? barHoverIndex : activeBarIndex))
-  console.log(activeBarIndex)
+const Chart = ({ data, gotData, activeBarIndex, setActiveBarIndex, setBarHoverIndex, highlightedIndex }) => {
   return (
     <>
       <Title>New candidates</Title>
